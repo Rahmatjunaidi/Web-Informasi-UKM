@@ -20,8 +20,6 @@ Dokumen desain sistem ada di `docs/system-design.md`.
 ## Role
 
 - `SUPER_ADMIN`
-- `ADVISOR`
-- `UKM_ADMIN`
 - `MEMBER`
 
 ## Struktur Utama
