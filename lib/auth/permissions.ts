@@ -1,7 +1,8 @@
 import type { AppRole } from "@/types/auth";
 
-export const publicRoutes = ["/", "/login"];
-export const authRoutes = ["/login"];
+// Public routes that don't require authentication
+export const publicRoutes = ["/", "/login", "/register", "/ukm", "/kontak"];
+export const authRoutes = ["/login", "/register"];
 export const apiAuthPrefix = "/api/auth";
 export const defaultLoginRedirect = "/dashboard";
 
@@ -39,10 +40,20 @@ export const routePermissions: RoutePermission[] = [
     prefix: "/dashboard",
     allowedRoles: ["SUPER_ADMIN", "ADVISOR", "UKM_ADMIN", "MEMBER"],
   },
+  // Member dashboard (root /member)
+  {
+    prefix: "/member",
+    allowedRoles: ["MEMBER"],
+  },
 ];
 
 export function isPublicRoute(pathname: string) {
-  return publicRoutes.includes(pathname);
+  // allow public access to landing, ukm listing/detail, kontak, login and register
+  if (pathname === "/") return true;
+  if (pathname.startsWith("/ukm")) return true;
+  if (pathname.startsWith("/kontak")) return true;
+  if (publicRoutes.includes(pathname)) return true;
+  return false;
 }
 
 export function isAuthRoute(pathname: string) {

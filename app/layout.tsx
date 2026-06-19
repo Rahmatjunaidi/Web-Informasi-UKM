@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 
 import "@/app/globals.css";
 import { ToastProvider } from "@/components/ui/toast";
+import Navbar from "@/components/navbar";
+import Footer from "@/components/footer";
 
 export const metadata: Metadata = {
   title: "Sistem Informasi UKM",
@@ -16,7 +18,11 @@ export default function RootLayout({
   return (
     <html lang="id">
       <body>
-        <ToastProvider>{children}</ToastProvider>
+        <ToastProvider>
+          <Navbar />
+          <main className="min-h-[60vh]">{children}</main>
+          <Footer />
+        </ToastProvider>
       </body>
     </html>
   );
