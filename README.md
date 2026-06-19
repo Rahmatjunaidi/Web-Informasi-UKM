@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Sistem Informasi Pengelolaan UKM
 
 Fondasi project web untuk Sistem Informasi Pengelolaan Unit Kegiatan Mahasiswa berbasis Next.js 15, TypeScript, Prisma ORM, MySQL, Tailwind CSS, Shadcn UI, dan Auth.js.
@@ -220,3 +221,6 @@ Model utama:
 - Folder modul sudah disiapkan agar implementasi fitur bisa ditambahkan bertahap.
 - Untuk production, ganti password seed dan gunakan secret environment yang kuat.
 - Untuk upload file bukti transaksi atau logo UKM, gunakan object storage daripada `public/uploads`.
+=======
+# Web-Informasi-UKM
+>>>>>>> c658a6b9f659eb8a720df3e240951db3b91c679a
