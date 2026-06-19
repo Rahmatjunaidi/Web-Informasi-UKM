@@ -1,0 +1,339 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+enum UserStatus {
+  ACTIVE
+  INACTIVE
+  SUSPENDED
+}
+
+enum UkmStatus {
+  ACTIVE
+  INACTIVE
+}
+
+enum MembershipPosition {
+  CHAIRMAN
+  VICE_CHAIRMAN
+  SECRETARY
+  TREASURER
+  COORDINATOR
+  MEMBER
+}
+
+enum MembershipStatus {
+  PENDING
+  ACTIVE
+  REJECTED
+  LEFT
+  INACTIVE
+}
+
+enum ActivityStatus {
+  DRAFT
+  SUBMITTED
+  APPROVED
+  REJECTED
+  ONGOING
+  COMPLETED
+  CANCELLED
+}
+
+enum ParticipantStatus {
+  REGISTERED
+  ATTENDED
+  ABSENT
+  CANCELLED
+}
+
+enum ApprovalStatus {
+  APPROVED
+  REJECTED
+  REVISION
+}
+
+enum FinanceType {
+  INCOME
+  EXPENSE
+}
+
+enum FinanceStatus {
+  DRAFT
+  SUBMITTED
+  APPROVED
+  REJECTED
+}
+
+enum AnnouncementTargetRole {
+  ALL
+  SUPER_ADMIN
+  ADVISOR
+  UKM_ADMIN
+  MEMBER
+}
+
+enum AnnouncementStatus {
+  DRAFT
+  PUBLISHED
+  ARCHIVED
+}
+
+model Role {
+  id        BigInt   @id @default(autoincrement())
+  name      String   @unique @db.VarChar(50)
+  label     String   @db.VarChar(100)
+  users     User[]
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("roles")
+}
+
+model User {
+  id              BigInt     @id @default(autoincrement())
+  roleId          BigInt     @map("role_id")
+  name            String     @db.VarChar(150)
+  email           String     @unique @db.VarChar(150)
+  passwordHash    String     @map("password_hash") @db.VarChar(255)
+  status          UserStatus @default(ACTIVE)
+  emailVerifiedAt DateTime?  @map("email_verified_at")
+  lastLoginAt     DateTime?  @map("last_login_at")
+  createdAt       DateTime   @default(now()) @map("created_at")
+  updatedAt       DateTime   @updatedAt @map("updated_at")
+
+  role                Role                 @relation(fields: [roleId], references: [id])
+  student             Student?
+  advisor             Advisor?
+  createdMemberships  UkmMembership[]      @relation("MembershipCreatedBy")
+  createdActivities   Activity[]           @relation("ActivityCreatedBy")
+  activityApprovals   ActivityApproval[]   @relation("ActivityApprovedBy")
+  financeTransactions FinanceTransaction[] @relation("FinanceCreatedBy")
+  financeApprovals    FinanceApproval[]    @relation("FinanceApprovedBy")
+  announcements       Announcement[]       @relation("AnnouncementCreatedBy")
+
+  @@index([roleId])
+  @@map("users")
+}
+
+model Student {
+  id           BigInt   @id @default(autoincrement())
+  userId       BigInt   @unique @map("user_id")
+  nim          String   @unique @db.VarChar(30)
+  name         String   @db.VarChar(150)
+  studyProgram String   @map("study_program") @db.VarChar(100)
+  faculty      String   @db.VarChar(100)
+  phone        String?  @db.VarChar(30)
+  address      String?  @db.Text
+  createdAt    DateTime @default(now()) @map("created_at")
+  updatedAt    DateTime @updatedAt @map("updated_at")
+
+  user                 User                  @relation(fields: [userId], references: [id], onDelete: Cascade)
+  memberships          UkmMembership[]
+  activityParticipants ActivityParticipant[]
+
+  @@map("students")
+}
+
+model Advisor {
+  id         BigInt   @id @default(autoincrement())
+  userId     BigInt   @unique @map("user_id")
+  nip        String   @unique @db.VarChar(30)
+  name       String   @db.VarChar(150)
+  department String?  @db.VarChar(100)
+  phone      String?  @db.VarChar(30)
+  createdAt  DateTime @default(now()) @map("created_at")
+  updatedAt  DateTime @updatedAt @map("updated_at")
+
+  user User  @relation(fields: [userId], references: [id], onDelete: Cascade)
+  ukms Ukm[]
+
+  @@map("advisors")
+}
+
+model Ukm {
+  id            BigInt    @id @default(autoincrement())
+  advisorId     BigInt?   @map("advisor_id")
+  code          String    @unique @db.VarChar(30)
+  name          String    @db.VarChar(150)
+  description   String?   @db.Text
+  logoUrl       String?   @map("logo_url") @db.VarChar(255)
+  contactEmail  String?   @map("contact_email") @db.VarChar(150)
+  contactPhone  String?   @map("contact_phone") @db.VarChar(30)
+  status        UkmStatus @default(ACTIVE)
+  establishedAt DateTime? @map("established_at") @db.Date
+  createdAt     DateTime  @default(now()) @map("created_at")
+  updatedAt     DateTime  @updatedAt @map("updated_at")
+
+  advisor             Advisor?             @relation(fields: [advisorId], references: [id], onDelete: SetNull)
+  memberships         UkmMembership[]
+  activities          Activity[]
+  financeCategories   FinanceCategory[]
+  financeTransactions FinanceTransaction[]
+  announcements       Announcement[]
+
+  @@index([advisorId])
+  @@map("ukms")
+}
+
+model UkmMembership {
+  id              BigInt             @id @default(autoincrement())
+  ukmId           BigInt             @map("ukm_id")
+  studentId       BigInt             @map("student_id")
+  createdByUserId BigInt?            @map("created_by_user_id")
+  position        MembershipPosition @default(MEMBER)
+  status          MembershipStatus   @default(PENDING)
+  joinedAt        DateTime?          @map("joined_at") @db.Date
+  leftAt          DateTime?          @map("left_at") @db.Date
+  createdAt       DateTime           @default(now()) @map("created_at")
+  updatedAt       DateTime           @updatedAt @map("updated_at")
+
+  ukm           Ukm      @relation(fields: [ukmId], references: [id], onDelete: Cascade)
+  student       Student  @relation(fields: [studentId], references: [id], onDelete: Cascade)
+  createdByUser User?    @relation("MembershipCreatedBy", fields: [createdByUserId], references: [id], onDelete: SetNull)
+
+  @@unique([ukmId, studentId])
+  @@index([studentId])
+  @@index([createdByUserId])
+  @@map("ukm_memberships")
+}
+
+model Activity {
+  id              BigInt         @id @default(autoincrement())
+  ukmId           BigInt         @map("ukm_id")
+  createdByUserId BigInt?        @map("created_by_user_id")
+  title           String         @db.VarChar(150)
+  description     String?        @db.Text
+  location        String?        @db.VarChar(150)
+  startsAt        DateTime       @map("starts_at")
+  endsAt          DateTime       @map("ends_at")
+  budgetAmount    Decimal        @default(0) @map("budget_amount") @db.Decimal(15, 2)
+  status          ActivityStatus @default(DRAFT)
+  createdAt       DateTime       @default(now()) @map("created_at")
+  updatedAt       DateTime       @updatedAt @map("updated_at")
+
+  ukm           Ukm                   @relation(fields: [ukmId], references: [id], onDelete: Cascade)
+  createdByUser User?                 @relation("ActivityCreatedBy", fields: [createdByUserId], references: [id], onDelete: SetNull)
+  participants  ActivityParticipant[]
+  approvals     ActivityApproval[]
+
+  @@index([ukmId])
+  @@index([createdByUserId])
+  @@map("activities")
+}
+
+model ActivityParticipant {
+  id           BigInt            @id @default(autoincrement())
+  activityId   BigInt            @map("activity_id")
+  studentId    BigInt            @map("student_id")
+  status       ParticipantStatus @default(REGISTERED)
+  registeredAt DateTime          @default(now()) @map("registered_at")
+  attendedAt   DateTime?         @map("attended_at")
+
+  activity Activity @relation(fields: [activityId], references: [id], onDelete: Cascade)
+  student  Student  @relation(fields: [studentId], references: [id], onDelete: Cascade)
+
+  @@unique([activityId, studentId])
+  @@index([studentId])
+  @@map("activity_participants")
+}
+
+model ActivityApproval {
+  id               BigInt         @id @default(autoincrement())
+  activityId       BigInt         @map("activity_id")
+  approvedByUserId BigInt?        @map("approved_by_user_id")
+  status           ApprovalStatus
+  notes            String?        @db.Text
+  approvedAt       DateTime?      @map("approved_at")
+  createdAt        DateTime       @default(now()) @map("created_at")
+
+  activity       Activity @relation(fields: [activityId], references: [id], onDelete: Cascade)
+  approvedByUser User?    @relation("ActivityApprovedBy", fields: [approvedByUserId], references: [id], onDelete: SetNull)
+
+  @@index([activityId])
+  @@index([approvedByUserId])
+  @@map("activity_approvals")
+}
+
+model FinanceCategory {
+  id        BigInt      @id @default(autoincrement())
+  ukmId     BigInt      @map("ukm_id")
+  name      String      @db.VarChar(100)
+  type      FinanceType
+  createdAt DateTime    @default(now()) @map("created_at")
+  updatedAt DateTime    @updatedAt @map("updated_at")
+
+  ukm          Ukm                  @relation(fields: [ukmId], references: [id], onDelete: Cascade)
+  transactions FinanceTransaction[]
+
+  @@unique([ukmId, name, type])
+  @@map("finance_categories")
+}
+
+model FinanceTransaction {
+  id              BigInt        @id @default(autoincrement())
+  ukmId           BigInt        @map("ukm_id")
+  categoryId      BigInt        @map("category_id")
+  createdByUserId BigInt?       @map("created_by_user_id")
+  title           String        @db.VarChar(150)
+  description     String?       @db.Text
+  type            FinanceType
+  amount          Decimal       @db.Decimal(15, 2)
+  transactionDate DateTime      @map("transaction_date") @db.Date
+  proofUrl        String?       @map("proof_url") @db.VarChar(255)
+  status          FinanceStatus @default(DRAFT)
+  createdAt       DateTime      @default(now()) @map("created_at")
+  updatedAt       DateTime      @updatedAt @map("updated_at")
+
+  ukm           Ukm               @relation(fields: [ukmId], references: [id], onDelete: Cascade)
+  category      FinanceCategory   @relation(fields: [categoryId], references: [id], onDelete: Restrict)
+  createdByUser User?             @relation("FinanceCreatedBy", fields: [createdByUserId], references: [id], onDelete: SetNull)
+  approvals     FinanceApproval[]
+
+  @@index([ukmId])
+  @@index([categoryId])
+  @@index([createdByUserId])
+  @@map("finance_transactions")
+}
+
+model FinanceApproval {
+  id               BigInt         @id @default(autoincrement())
+  transactionId    BigInt         @map("transaction_id")
+  approvedByUserId BigInt?        @map("approved_by_user_id")
+  status           ApprovalStatus
+  notes            String?        @db.Text
+  approvedAt       DateTime?      @map("approved_at")
+  createdAt        DateTime       @default(now()) @map("created_at")
+
+  transaction    FinanceTransaction @relation(fields: [transactionId], references: [id], onDelete: Cascade)
+  approvedByUser User?              @relation("FinanceApprovedBy", fields: [approvedByUserId], references: [id], onDelete: SetNull)
+
+  @@index([transactionId])
+  @@index([approvedByUserId])
+  @@map("finance_approvals")
+}
+
+model Announcement {
+  id              BigInt                 @id @default(autoincrement())
+  ukmId           BigInt?                @map("ukm_id")
+  createdByUserId BigInt?                @map("created_by_user_id")
+  title           String                 @db.VarChar(150)
+  content         String                 @db.Text
+  targetRole      AnnouncementTargetRole @default(ALL) @map("target_role")
+  status          AnnouncementStatus     @default(DRAFT)
+  publishedAt     DateTime?              @map("published_at")
+  createdAt       DateTime               @default(now()) @map("created_at")
+  updatedAt       DateTime               @updatedAt @map("updated_at")
+
+  ukm           Ukm?  @relation(fields: [ukmId], references: [id], onDelete: Cascade)
+  createdByUser User? @relation("AnnouncementCreatedBy", fields: [createdByUserId], references: [id], onDelete: SetNull)
+
+  @@index([ukmId])
+  @@index([createdByUserId])
+  @@map("announcements")
+}
