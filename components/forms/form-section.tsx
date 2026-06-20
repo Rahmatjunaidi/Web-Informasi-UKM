@@ -11,7 +11,7 @@ type FormSectionProps = {
 export function FormSection({ children, className, description, title }: FormSectionProps) {
   return (
     <GlassCard className={cn("overflow-hidden", className)}>
-      <CardHeader className="border-b border-white/55 bg-white/35">
+      <CardHeader className="border-b border-white/[0.12] text-white glass-surface">
         <CardTitle>{title}</CardTitle>
         {description ? <CardDescription>{description}</CardDescription> : null}
       </CardHeader>

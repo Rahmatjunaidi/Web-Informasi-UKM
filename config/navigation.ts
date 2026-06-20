@@ -10,8 +10,9 @@ export const navigationItems: NavigationItem[] = [
   {
     title: "Dashboard",
     href: "/dashboard",
-    allowedRoles: ["SUPER_ADMIN", "ADVISOR", "UKM_ADMIN", "MEMBER"],
+    allowedRoles: ["SUPER_ADMIN", "ADVISOR", "UKM_ADMIN"],
   },
+
   {
     title: "UKM",
     href: "/dashboard/ukm",
@@ -37,4 +38,5 @@ export const navigationItems: NavigationItem[] = [
     href: "/dashboard/pengumuman",
     allowedRoles: ["SUPER_ADMIN", "ADVISOR", "UKM_ADMIN", "MEMBER"],
   },
+
 ];

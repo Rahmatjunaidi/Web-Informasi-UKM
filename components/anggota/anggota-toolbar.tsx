@@ -17,14 +17,14 @@ export function AnggotaToolbar({ search, ukmId, membershipStatus, ukmOptions }: 
         <Input className="pl-9" defaultValue={search} name="q" placeholder="Cari nama atau NIM" />
       </div>
 
-      <select className="focus-ring h-10 rounded-md border border-slate-200/80 bg-white/75 px-3 text-sm shadow-sm" defaultValue={ukmId} name="ukmId">
+      <select className="focus-ring h-10 rounded-md px-3 text-sm text-white glass" defaultValue={ukmId} name="ukmId">
         <option value="">Semua UKM</option>
         {ukmOptions.map((u) => (
           <option key={u.id} value={u.id}>{u.name}</option>
         ))}
       </select>
 
-      <select className="focus-ring h-10 rounded-md border border-slate-200/80 bg-white/75 px-3 text-sm shadow-sm" defaultValue={membershipStatus} name="membershipStatus">
+      <select className="focus-ring h-10 rounded-md px-3 text-sm text-white glass" defaultValue={membershipStatus} name="membershipStatus">
         <option value="">Semua Status</option>
         <option value="ACTIVE">ACTIVE</option>
         <option value="INACTIVE">INACTIVE</option>

@@ -1,0 +1,674 @@
+
+{
+  "header": {
+    "reportVersion": 5,
+    "event": "Allocation failed - JavaScript heap out of memory",
+    "trigger": "OOMError",
+    "filename": "report.20260620.145156.21324.0.006.json",
+    "dumpEventTime": "2026-06-20T14:51:56Z",
+    "dumpEventTimeStamp": "1781941916897",
+    "processId": 21324,
+    "threadId": 0,
+    "cwd": "C:\\Users\\rahma\\OneDrive\\Dokumen\\MATKUL\\MATKUL SMT 6\\Software Engineering\\Project SE",
+    "commandLine": [
+      "C:\\Users\\rahma\\AppData\\Local\\GitHub CLI\\copilot\\copilot.exe",
+      "--no-warnings",
+      "--report-on-fatalerror",
+      "--optimize-for-size",
+      "--expose-gc",
+      "--no-maglev",
+      "--no-sparkplug",
+      "C:\\Users\\rahma\\AppData\\Local\\GitHub CLI\\copilot\\copilot.exe"
+    ],
+    "nodejsVersion": "v24.16.0",
+    "wordSize": 64,
+    "arch": "x64",
+    "platform": "win32",
+    "componentVersions": {
+      "acorn": "8.16.0",
+      "ada": "3.4.4",
+      "amaro": "1.1.9",
+      "ares": "1.34.6",
+      "brotli": "1.2.0",
+      "cldr": "48.0",
+      "icu": "78.3",
+      "llhttp": "9.4.1",
+      "merve": "1.2.2",
+      "modules": "137",
+      "napi": "10",
+      "nbytes": "0.1.4",
+      "ncrypto": "0.0.1",
+      "nghttp2": "1.68.0",
+      "nghttp3": "",
+      "ngtcp2": "",
+      "node": "24.16.0",
+      "openssl": "3.5.6",
+      "simdjson": "4.6.1",
+      "simdutf": "6.4.0",
+      "sqlite": "3.53.0",
+      "tz": "2026b",
+      "undici": "7.25.0",
+      "unicode": "17.0",
+      "uv": "1.52.1",
+      "uvwasi": "0.0.23",
+      "v8": "13.6.233.17-node.49",
+      "zlib": "1.3.1-e00f703",
+      "zstd": "1.5.7"
+    },
+    "release": {
+      "name": "node",
+      "lts": "Krypton",
+      "headersUrl": "https://nodejs.org/download/release/v24.16.0/node-v24.16.0-headers.tar.gz",
+      "sourceUrl": "https://nodejs.org/download/release/v24.16.0/node-v24.16.0.tar.gz",
+      "libUrl": "https://nodejs.org/download/release/v24.16.0/win-x64/node.lib"
+    },
+    "osName": "Windows_NT",
+    "osRelease": "10.0.26200",
+    "osVersion": "Windows 11 Home Single Language",
+    "osMachine": "x86_64",
+    "cpus": [
+      {
+        "model": "AMD Athlon Gold 3150U with Radeon Graphics     ",
+        "speed": 2395,
+        "user": 19295687,
+        "nice": 0,
+        "sys": 24167578,
+        "idle": 49154062,
+        "irq": 1883484
+      },
+      {
+        "model": "AMD Athlon Gold 3150U with Radeon Graphics     ",
+        "speed": 2395,
+        "user": 17261125,
+        "nice": 0,
+        "sys": 22670062,
+        "idle": 52686109,
+        "irq": 791671
+      },
+      {
+        "model": "AMD Athlon Gold 3150U with Radeon Graphics     ",
+        "speed": 2395,
+        "user": 20541468,
+        "nice": 0,
+        "sys": 22456734,
+        "idle": 49619093,
+        "irq": 652453
+      },
+      {
+        "model": "AMD Athlon Gold 3150U with Radeon Graphics     ",
+        "speed": 2395,
+        "user": 22331250,
+        "nice": 0,
+        "sys": 19573171,
+        "idle": 50712875,
+        "irq": 603375
+      }
+    ],
+    "networkInterfaces": [
+      {
+        "name": "Wi-Fi",
+        "internal": false,
+        "mac": "00:e9:3a:ea:2f:e7",
+        "address": "2001:448a:2082:f777:791b:88ed:2334:4c3",
+        "netmask": "ffff:ffff:ffff:ffff::",
+        "family": "IPv6",
+        "scopeid": 0
+      },
+      {
+        "name": "Wi-Fi",
+        "internal": false,
+        "mac": "00:e9:3a:ea:2f:e7",
+        "address": "2001:448a:2082:f777:10cc:39e8:9524:c0ee",
+        "netmask": "ffff:ffff:ffff:ffff:ffff:ffff:ffff:ffff",
+        "family": "IPv6",
+        "scopeid": 0
+      },
+      {
+        "name": "Wi-Fi",
+        "internal": false,
+        "mac": "00:e9:3a:ea:2f:e7",
+        "address": "fe80::306b:a7fa:f806:af16",
+        "netmask": "ffff:ffff:ffff:ffff::",
+        "family": "IPv6",
+        "scopeid": 15
+      },
+      {
+        "name": "Wi-Fi",
+        "internal": false,
+        "mac": "00:e9:3a:ea:2f:e7",
+        "address": "192.168.1.7",
+        "netmask": "255.255.255.0",
+        "family": "IPv4"
+      },
+      {
+        "name": "Loopback Pseudo-Interface 1",
+        "internal": true,
+        "mac": "00:00:00:00:00:00",
+        "address": "::1",
+        "netmask": "ffff:ffff:ffff:ffff:ffff:ffff:ffff:ffff",
+        "family": "IPv6",
+        "scopeid": 0
+      },
+      {
+        "name": "Loopback Pseudo-Interface 1",
+        "internal": true,
+        "mac": "00:00:00:00:00:00",
+        "address": "127.0.0.1",
+        "netmask": "255.0.0.0",
+        "family": "IPv4"
+      }
+    ],
+    "host": "rahmat"
+  },
+  "javascriptStack": {
+    "message": "No stack.",
+    "stack": [
+      "Unavailable."
+    ],
+    "errorProperties": {
+    }
+  },
+  "javascriptHeap": {
+    "totalMemory": 93646848,
+    "executableMemory": 3510272,
+    "totalCommittedMemory": 93646848,
+    "availableMemory": 1755021776,
+    "totalGlobalHandlesMemory": 135240,
+    "usedGlobalHandlesMemory": 54208,
+    "usedMemory": 83873872,
+    "memoryLimit": 1838153728,
+    "mallocedMemory": 3402712,
+    "externalMemory": 41196493,
+    "peakMallocedMemory": 14219560,
+    "nativeContextCount": 2,
+    "detachedContextCount": 0,
+    "doesZapGarbage": 0,
+    "heapSpaces": {
+      "read_only_space": {
+        "memorySize": 0,
+        "committedMemory": 0,
+        "capacity": 0,
+        "used": 0,
+        "available": 0
+      },
+      "new_space": {
+        "memorySize": 1048576,
+        "committedMemory": 1048576,
+        "capacity": 1048512,
+        "used": 923936,
+        "available": 124576
+      },
+      "old_space": {
+        "memorySize": 81637376,
+        "committedMemory": 81637376,
+        "capacity": 81362552,
+        "used": 73422176,
+        "available": 7940376
+      },
+      "code_space": {
+        "memorySize": 2883584,
+        "committedMemory": 2883584,
+        "capacity": 2883232,
+        "used": 2505792,
+        "available": 377440
+      },
+      "shared_space": {
+        "memorySize": 0,
+        "committedMemory": 0,
+        "capacity": 0,
+        "used": 0,
+        "available": 0
+      },
+      "trusted_space": {
+        "memorySize": 5332992,
+        "committedMemory": 5332992,
+        "capacity": 5323760,
+        "used": 4299832,
+        "available": 1023928
+      },
+      "shared_trusted_space": {
+        "memorySize": 0,
+        "committedMemory": 0,
+        "capacity": 0,
+        "used": 0,
+        "available": 0
+      },
+      "new_large_object_space": {
+        "memorySize": 0,
+        "committedMemory": 0,
+        "capacity": 1048576,
+        "used": 0,
+        "available": 1048576
+      },
+      "large_object_space": {
+        "memorySize": 1921024,
+        "committedMemory": 1921024,
+        "capacity": 1905320,
+        "used": 1905320,
+        "available": 0
+      },
+      "code_large_object_space": {
+        "memorySize": 626688,
+        "committedMemory": 626688,
+        "capacity": 623744,
+        "used": 623744,
+        "available": 0
+      },
+      "shared_large_object_space": {
+        "memorySize": 0,
+        "committedMemory": 0,
+        "capacity": 0,
+        "used": 0,
+        "available": 0
+      },
+      "shared_trusted_large_object_space": {
+        "memorySize": 0,
+        "committedMemory": 0,
+        "capacity": 0,
+        "used": 0,
+        "available": 0
+      },
+      "trusted_large_object_space": {
+        "memorySize": 196608,
+        "committedMemory": 196608,
+        "capacity": 193072,
+        "used": 193072,
+        "available": 0
+      }
+    }
+  },
+  "nativeStack": [
+    {
+      "pc": "0x00007ff7abbd8407",
+      "symbol": ""
+    },
+    {
+      "pc": "0x00007ff7abbd564c",
+      "symbol": ""
+    },
+    {
+      "pc": "0x00007ff7abbda3a8",
+      "symbol": ""
+    },
+    {
+      "pc": "0x00007ff7abca0c07",
+      "symbol": ""
+    },
+    {
+      "pc": "0x00007ff7ac8ef697",
+      "symbol": ""
+    },
+    {
+      "pc": "0x00007ff7ac6f00c7",
+      "symbol": ""
+    },
+    {
+      "pc": "0x00007ff7ac688aeb",
+      "symbol": ""
+    },
+    {
+      "pc": "0x00007ff7ac66053e",
+      "symbol": ""
+    },
+    {
+      "pc": "0x00007ff7ac6f2b62",
+      "symbol": ""
+    },
+    {
+      "pc": "0x00007ff7ac6f1b17",
+      "symbol": ""
+    },
+    {
+      "pc": "0x00007ff7ac702a42",
+      "symbol": ""
+    },
+    {
+      "pc": "0x00007ff7ac70256b",
+      "symbol": ""
+    },
+    {
+      "pc": "0x00007ff7adb8e86d",
+      "symbol": ""
+    },
+    {
+      "pc": "0x00007ff7ac6edb90",
+      "symbol": ""
+    },
+    {
+      "pc": "0x00007ff7ac69e542",
+      "symbol": ""
+    },
+    {
+      "pc": "0x00007ff7abbf2b5a",
+      "symbol": ""
+    },
+    {
+      "pc": "0x00007ff7abbf1340",
+      "symbol": ""
+    },
+    {
+      "pc": "0x00007ff7ac95583b",
+      "symbol": ""
+    },
+    {
+      "pc": "0x00007ff7ac9553af",
+      "symbol": ""
+    },
+    {
+      "pc": "0x00007ff7abdb876f",
+      "symbol": ""
+    },
+    {
+      "pc": "0x00007ff7abc31f46",
+      "symbol": ""
+    },
+    {
+      "pc": "0x00007ff7abd017bc",
+      "symbol": ""
+    },
+    {
+      "pc": "0x00007ff7acd1df02",
+      "symbol": ""
+    },
+    {
+      "pc": "0x00007ff7adb97f74",
+      "symbol": ""
+    },
+    {
+      "pc": "0x00007ffd9c63e957",
+      "symbol": ""
+    },
+    {
+      "pc": "0x00007ffd9e927c1c",
+      "symbol": ""
+    }
+  ],
+  "resourceUsage": {
+    "free_memory": 390320128,
+    "total_memory": 3669745664,
+    "rss": 142135296,
+    "available_memory": 390324224,
+    "userCpuSeconds": 1069.75,
+    "kernelCpuSeconds": 82.765,
+    "cpuConsumptionPercent": 21.3271,
+    "userCpuConsumptionPercent": 19.7955,
+    "kernelCpuConsumptionPercent": 1.53155,
+    "maxRss": 199036928,
+    "pageFaults": {
+      "IORequired": 4094614,
+      "IONotRequired": 0
+    },
+    "fsActivity": {
+      "reads": 5153,
+      "writes": 1768
+    }
+  },
+  "uvthreadResourceUsage": {
+    "userCpuSeconds": 483.031,
+    "kernelCpuSeconds": 45.015,
+    "cpuConsumptionPercent": 9.77139,
+    "userCpuConsumptionPercent": 8.9384,
+    "kernelCpuConsumptionPercent": 0.832994,
+    "fsActivity": {
+      "reads": 0,
+      "writes": 0
+    }
+  },
+  "libuv": [
+    {
+      "type": "async",
+      "is_active": true,
+      "is_referenced": false,
+      "address": "0x0000020d04387b00"
+    },
+    {
+      "type": "async",
+      "is_active": true,
+      "is_referenced": false,
+      "address": "0x00007ff7b1075660"
+    },
+    {
+      "type": "timer",
+      "is_active": true,
+      "is_referenced": true,
+      "address": "0x0000020d05e66ba0",
+      "repeat": 0,
+      "firesInMsFromNow": 82,
+      "expired": false
+    },
+    {
+      "type": "check",
+      "is_active": true,
+      "is_referenced": false,
+      "address": "0x0000020d05e66c40"
+    },
+    {
+      "type": "idle",
+      "is_active": true,
+      "is_referenced": true,
+      "address": "0x0000020d05e66cb8"
+    },
+    {
+      "type": "prepare",
+      "is_active": true,
+      "is_referenced": false,
+      "address": "0x0000020d05e66d30"
+    },
+    {
+      "type": "check",
+      "is_active": true,
+      "is_referenced": false,
+      "address": "0x0000020d05e66da8"
+    },
+    {
+      "type": "async",
+      "is_active": true,
+      "is_referenced": false,
+      "address": "0x0000020d05e66e20"
+    },
+    {
+      "type": "tty",
+      "is_active": false,
+      "is_referenced": true,
+      "address": "0x0000020d3e74e8c8",
+      "width": 120,
+      "height": 30,
+      "writeQueueSize": 0,
+      "readable": false,
+      "writable": true
+    },
+    {
+      "type": "signal",
+      "is_active": true,
+      "is_referenced": false,
+      "address": "0x0000020d3e743838",
+      "signum": 28,
+      "signal": "SIGWINCH"
+    },
+    {
+      "type": "async",
+      "is_active": true,
+      "is_referenced": false,
+      "address": "0x0000020d3e93e020"
+    },
+    {
+      "type": "tty",
+      "is_active": false,
+      "is_referenced": true,
+      "address": "0x0000020d05e92328",
+      "width": 120,
+      "height": 30,
+      "writeQueueSize": 0,
+      "readable": false,
+      "writable": true
+    },
+    {
+      "type": "tty",
+      "is_active": true,
+      "is_referenced": true,
+      "address": "0x0000020d3fa0b748",
+      "writeQueueSize": 0,
+      "readable": true,
+      "writable": false
+    },
+    {
+      "type": "async",
+      "is_active": true,
+      "is_referenced": false,
+      "address": "0x0000020d3e8167a0"
+    },
+    {
+      "type": "signal",
+      "is_active": true,
+      "is_referenced": false,
+      "address": "0x0000020d3e81abb8",
+      "signum": 15,
+      "signal": "SIGTERM"
+    },
+    {
+      "type": "signal",
+      "is_active": true,
+      "is_referenced": false,
+      "address": "0x0000020d3e81b638",
+      "signum": 2,
+      "signal": "SIGINT"
+    },
+    {
+      "type": "signal",
+      "is_active": true,
+      "is_referenced": false,
+      "address": "0x0000020d3e81a438",
+      "signum": 1,
+      "signal": "SIGHUP"
+    },
+    {
+      "type": "signal",
+      "is_active": true,
+      "is_referenced": false,
+      "address": "0x0000020d3e81b7b8",
+      "signum": 3,
+      "signal": "SIGQUIT"
+    },
+    {
+      "type": "async",
+      "is_active": true,
+      "is_referenced": false,
+      "address": "0x0000020d3e816970"
+    },
+    {
+      "type": "signal",
+      "is_active": true,
+      "is_referenced": false,
+      "address": "0x0000020d3ff2a068",
+      "signum": 22,
+      "signal": "SIGABRT"
+    },
+    {
+      "type": "fs_event",
+      "is_active": true,
+      "is_referenced": false,
+      "address": "0x0000020d3eb6a038",
+      "filename": "\\\\?\\C:\\Users\\rahma\\.copilot\\session-state\\b3ba0cfb-b698-45ca-a71f-800095f1c32c\\research"
+    },
+    {
+      "type": "fs_event",
+      "is_active": true,
+      "is_referenced": true,
+      "address": "0x0000020d3eb69868",
+      "filename": "\\\\?\\C:\\Users\\rahma\\.copilot\\ide"
+    },
+    {
+      "type": "async",
+      "is_active": true,
+      "is_referenced": true,
+      "address": "0x0000020d400509e0"
+    },
+    {
+      "type": "async",
+      "is_active": true,
+      "is_referenced": true,
+      "address": "0x0000020d40050640"
+    },
+    {
+      "type": "async",
+      "is_active": true,
+      "is_referenced": true,
+      "address": "0x0000020d40050d80"
+    },
+    {
+      "type": "async",
+      "is_active": true,
+      "is_referenced": true,
+      "address": "0x0000020d4004f080"
+    },
+    {
+      "type": "loop",
+      "is_active": true,
+      "address": "0x00007ff7b10ac9f8",
+      "loopIdleTimeSeconds": 4532.84
+    }
+  ],
+  "workers": [
+  ],
+  "sharedObjects": [
+    "C:\\Users\\rahma\\AppData\\Local\\GitHub CLI\\copilot\\copilot.exe",
+    "C:\\WINDOWS\\SYSTEM32\\ntdll.dll",
+    "C:\\WINDOWS\\System32\\KERNEL32.DLL",
+    "C:\\WINDOWS\\System32\\KERNELBASE.dll",
+    "C:\\WINDOWS\\System32\\CRYPT32.dll",
+    "C:\\WINDOWS\\System32\\ucrtbase.dll",
+    "C:\\WINDOWS\\System32\\WS2_32.dll",
+    "C:\\WINDOWS\\System32\\RPCRT4.dll",
+    "C:\\WINDOWS\\System32\\USER32.dll",
+    "C:\\WINDOWS\\System32\\win32u.dll",
+    "C:\\WINDOWS\\System32\\GDI32.dll",
+    "C:\\WINDOWS\\System32\\gdi32full.dll",
+    "C:\\WINDOWS\\System32\\msvcp_win.dll",
+    "C:\\WINDOWS\\System32\\ADVAPI32.dll",
+    "C:\\WINDOWS\\System32\\msvcrt.dll",
+    "C:\\WINDOWS\\System32\\sechost.dll",
+    "C:\\WINDOWS\\System32\\SHELL32.dll",
+    "C:\\WINDOWS\\System32\\ole32.dll",
+    "C:\\WINDOWS\\System32\\combase.dll",
+    "C:\\WINDOWS\\SYSTEM32\\IPHLPAPI.DLL",
+    "C:\\WINDOWS\\SYSTEM32\\USERENV.dll",
+    "C:\\WINDOWS\\SYSTEM32\\dbghelp.dll",
+    "C:\\WINDOWS\\System32\\OLEAUT32.dll",
+    "C:\\WINDOWS\\SYSTEM32\\WINMM.dll",
+    "C:\\WINDOWS\\SYSTEM32\\dbgcore.DLL",
+    "C:\\WINDOWS\\SYSTEM32\\CRYPTBASE.DLL",
+    "C:\\WINDOWS\\System32\\IMM32.DLL",
+    "C:\\WINDOWS\\SYSTEM32\\powrprof.dll",
+    "C:\\WINDOWS\\SYSTEM32\\UMPDC.dll",
+    "C:\\WINDOWS\\System32\\bcryptprimitives.dll",
+    "C:\\WINDOWS\\system32\\uxtheme.dll",
+    "C:\\WINDOWS\\system32\\mswsock.dll",
+    "C:\\WINDOWS\\SYSTEM32\\CRYPTSP.dll",
+    "C:\\WINDOWS\\system32\\rsaenh.dll",
+    "C:\\WINDOWS\\SYSTEM32\\kernel.appcore.dll",
+    "C:\\WINDOWS\\System32\\NSI.dll",
+    "C:\\WINDOWS\\SYSTEM32\\dhcpcsvc6.DLL",
+    "C:\\WINDOWS\\SYSTEM32\\dhcpcsvc.DLL",
+    "C:\\WINDOWS\\SYSTEM32\\DNSAPI.dll",
+    "C:\\WINDOWS\\SYSTEM32\\DSPARSE.dll",
+    "C:\\WINDOWS\\system32\\napinsp.dll",
+    "C:\\WINDOWS\\System32\\winrnr.dll",
+    "C:\\WINDOWS\\system32\\nlansp_c.dll",
+    "C:\\WINDOWS\\system32\\wshbth.dll",
+    "\\\\?\\C:\\Users\\rahma\\AppData\\Local\\copilot\\pkg\\win32-x64\\1.0.63\\prebuilds\\win32-x64\\cli-native.node",
+    "\\\\?\\C:\\Users\\rahma\\AppData\\Local\\copilot\\pkg\\win32-x64\\1.0.63\\prebuilds\\win32-x64\\runtime.node",
+    "C:\\WINDOWS\\SYSTEM32\\secur32.dll",
+    "C:\\WINDOWS\\SYSTEM32\\SSPICLI.DLL",
+    "C:\\WINDOWS\\SYSTEM32\\bcrypt.dll",
+    "\\\\?\\C:\\Users\\rahma\\AppData\\Local\\copilot\\pkg\\win32-x64\\1.0.63\\prebuilds\\win32-x64\\keytar.node",
+    "C:\\Windows\\System32\\rasadhlp.dll",
+    "C:\\WINDOWS\\System32\\fwpuclnt.dll",
+    "C:\\WINDOWS\\SYSTEM32\\MSASN1.dll",
+    "C:\\WINDOWS\\SYSTEM32\\gpapi.dll",
+    "C:\\WINDOWS\\System32\\shcore.dll",
+    "C:\\Windows\\System32\\cryptnet.dll",
+    "C:\\WINDOWS\\SYSTEM32\\profapi.dll",
+    "C:\\WINDOWS\\SYSTEM32\\WINNSI.DLL",
+    "C:\\WINDOWS\\SYSTEM32\\ntmarta.dll"
+  ]
+}

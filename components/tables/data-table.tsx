@@ -26,7 +26,7 @@ export function DataTable<TData extends Record<string, unknown>>({
     <GlassCard className={cn("overflow-hidden", className)}>
       <Table>
         <TableHeader>
-          <TableRow className="bg-white/55 hover:bg-white/55">
+          <TableRow className="bg-transparent glass-hover">
             {columns.map((column) => (
               <TableHead className={column.className} key={String(column.key)}>
                 {column.header}

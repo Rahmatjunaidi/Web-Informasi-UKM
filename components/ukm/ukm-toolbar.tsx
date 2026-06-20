@@ -16,7 +16,7 @@ export function UkmToolbar({ search, status }: UkmToolbarProps) {
         <Input className="pl-9" defaultValue={search} name="q" placeholder="Cari kode, nama, atau deskripsi UKM" />
       </div>
       <select
-        className="focus-ring h-10 rounded-md border border-slate-200/80 bg-white/75 px-3 text-sm shadow-sm"
+        className="focus-ring h-10 rounded-md px-3 text-sm text-white shadow-sm glass"
         defaultValue={status}
         name="status"
       >

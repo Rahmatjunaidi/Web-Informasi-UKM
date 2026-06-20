@@ -38,12 +38,8 @@ export const routePermissions: RoutePermission[] = [
   },
   {
     prefix: "/dashboard",
-    allowedRoles: ["SUPER_ADMIN", "ADVISOR", "UKM_ADMIN", "MEMBER"],
-  },
-  // Member dashboard (root /member)
-  {
-    prefix: "/member",
-    allowedRoles: ["MEMBER"],
+    // Members should not access the admin dashboard
+    allowedRoles: ["SUPER_ADMIN", "ADVISOR", "UKM_ADMIN"],
   },
 ];
 

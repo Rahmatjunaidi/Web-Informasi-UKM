@@ -54,14 +54,14 @@ export default async function MemberDashboardPage() {
   return (
     <div className="space-y-6">
       {/* Hero */}
-      <section className="glass p-6 rounded-3xl backdrop-blur-lg bg-gradient-to-br from-white/40 to-white/10">
+      <section className="glass p-6 rounded-3xl">
         <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           <div>
             <h2 className="text-2xl font-semibold">Halo, {user.name ?? "Pengguna"} 👋</h2>
             <p className="text-sm text-muted-foreground">Selamat datang di Member Dashboard. Kelola aktivitas dan lihat ringkasan keanggotaanmu.</p>
             <div className="mt-3 flex items-center gap-3">
               <div className="rounded-full bg-gradient-to-br from-primary to-emerald-400 p-1">
-                <div className="h-12 w-12 rounded-full bg-white/90 flex items-center justify-center text-primary font-semibold">{(user.name || "?").split(" ")[0].slice(0,1).toUpperCase()}</div>
+              <div className="h-12 w-12 rounded-full flex items-center justify-center text-white font-semibold glass">{(user.name || "?").split(" ")[0].slice(0,1).toUpperCase()}</div>
               </div>
               <div>
                 <div className="text-sm text-muted-foreground">Status Keanggotaan</div>
@@ -150,7 +150,7 @@ export default async function MemberDashboardPage() {
                 <ul className="space-y-3">
                   {ukms.map((u:any) => (
                     <li key={u.id} className="flex items-center gap-3">
-                      <div className="h-12 w-12 rounded-full bg-gradient-to-br from-white/60 to-white/20 flex items-center justify-center text-lg font-semibold">{u.name.charAt(0)}</div>
+                      <div className="h-12 w-12 rounded-full flex items-center justify-center text-lg font-semibold glass">{u.name.charAt(0)}</div>
                       <div>
                         <div className="font-medium">{u.name}</div>
                         <div className="text-sm text-muted-foreground">{u.position} • {u.status}</div>
@@ -171,14 +171,14 @@ export default async function MemberDashboardPage() {
                 <div className="space-y-4">
                   <div>
                     <div className="flex justify-between text-sm"><span>Kehadiran</span><span className="font-medium">{typeof attendancePercent === 'number' ? `${attendancePercent}%` : "N/A"}</span></div>
-                    <div className="h-2 w-full bg-white/30 rounded-full mt-2 overflow-hidden">
+                    <div className="h-2 w-full glass-surface rounded-full mt-2 overflow-hidden">
                       <div style={{ width: typeof attendancePercent === 'number' ? `${attendancePercent}%` : '0%' }} className="h-2 bg-emerald-500" />
                     </div>
                   </div>
 
                   <div>
                     <div className="flex justify-between text-sm"><span>Kontribusi</span><span className="font-medium">42%</span></div>
-                    <div className="h-2 w-full bg-white/30 rounded-full mt-2 overflow-hidden">
+                    <div className="h-2 w-full glass-surface rounded-full mt-2 overflow-hidden">
                       <div style={{ width: '42%' }} className="h-2 bg-indigo-500" />
                     </div>
                   </div>
@@ -222,7 +222,7 @@ export default async function MemberDashboardPage() {
               ) : (
                 <div className="space-y-3">
                   {announcements.map((a:any) => (
-                    <Link key={a.id.toString()} href={`/dashboard/pengumuman/${a.id}`} className="block rounded-md p-3 hover:bg-white/5">
+                    <Link key={a.id.toString()} href={`/dashboard/pengumuman/${a.id}`} className="block rounded-md p-3 glass-hover">
                       <div className="flex items-center justify-between">
                         <div className="font-medium">{a.title}</div>
                         <div className="text-xs text-muted-foreground">{new Date(a.createdAt).toLocaleDateString('id-ID',{day:'2-digit',month:'short'})}</div>

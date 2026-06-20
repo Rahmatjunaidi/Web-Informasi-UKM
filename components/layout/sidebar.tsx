@@ -49,7 +49,7 @@ export function Sidebar({ role }: SidebarProps) {
             return (
               <Link
                 className={cn(
-                  "group flex h-10 items-center gap-3 rounded-md px-3 text-sm font-medium text-slate-500 transition-all hover:bg-white/70 hover:text-slate-950",
+                  "group flex h-10 items-center gap-3 rounded-md px-3 text-sm font-medium text-white transition-all glass-hover",
                   active && "bg-primary text-primary-foreground shadow-sm shadow-primary/20 hover:bg-primary hover:text-primary-foreground",
                 )}
                 href={item.href}
@@ -61,12 +61,12 @@ export function Sidebar({ role }: SidebarProps) {
             );
           })}
         </nav>
-        <div className="mt-auto rounded-md border border-white/50 bg-white/60 p-3 text-xs text-muted-foreground shadow-sm">
+        <div className="mt-auto rounded-md p-3 text-xs text-white glass shadow-sm">
           <div className="mb-3 flex items-center gap-2 text-foreground">
             <PanelLeft className="size-4 text-primary" />
-            <p className="font-medium">Academic Workspace</p>
+            <p className="font-medium">UKM UPJ</p>
           </div>
-          <p className="leading-5">Kelola organisasi, kegiatan, anggota, dan laporan UKM dalam satu dashboard.</p>
+          <p className="leading-5">Portal Unit Mahasiswa</p>
         </div>
       </aside>
 
@@ -81,7 +81,7 @@ export function Sidebar({ role }: SidebarProps) {
           return (
             <Link
               className={cn(
-                "flex h-9 shrink-0 items-center gap-2 rounded-md px-3 text-sm font-medium text-slate-500",
+                "flex h-9 shrink-0 items-center gap-2 rounded-md px-3 text-sm font-medium text-white",
                 active && "bg-primary text-primary-foreground shadow-sm",
               )}
               href={item.href}
@@ -99,13 +99,13 @@ export function Sidebar({ role }: SidebarProps) {
 
 function SidebarBrand() {
   return (
-    <div className="flex items-center gap-3 rounded-md border border-white/50 bg-white/60 p-3 shadow-sm">
+    <div className="flex items-center gap-3 rounded-md p-3 glass shadow-sm">
       <div className="flex size-10 items-center justify-center rounded-md bg-primary text-primary-foreground shadow-sm shadow-primary/25">
         <GraduationCap className="size-5" />
       </div>
       <div>
-        <p className="text-sm font-semibold text-slate-950">SI UKM</p>
-        <p className="text-xs text-muted-foreground">Modern Academic SaaS</p>
+      <p className="text-sm font-semibold text-white">UKM UPJ</p>
+      <p className="text-xs text-muted-foreground">Portal Unit Kegiatan Mahasiswa</p>
       </div>
     </div>
   );

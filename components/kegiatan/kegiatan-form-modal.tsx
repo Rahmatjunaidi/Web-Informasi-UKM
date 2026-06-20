@@ -99,7 +99,7 @@ export function KegiatanFormModal({ mode, activity, trigger }: Props) {
 
           <div className="space-y-2">
             <Label htmlFor="status">Status</Label>
-            <select id="status" name="status" defaultValue={activity?.status ?? "DRAFT"} className="focus-ring h-10 w-full rounded-md border border-slate-200/80 bg-white/75 px-3 text-sm shadow-sm">
+            <select id="status" name="status" defaultValue={activity?.status ?? "DRAFT"} className="focus-ring h-10 w-full rounded-md px-3 text-sm text-white shadow-sm glass">
               <option value="DRAFT">DRAFT</option>
               <option value="SUBMITTED">SUBMITTED</option>
               <option value="APPROVED">APPROVED</option>

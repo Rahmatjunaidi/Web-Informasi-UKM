@@ -8,9 +8,9 @@ import DeleteCategoryDialog from "./delete-category-dialog";
 
 export default function CategoryTable({ items = [], ukms = [] }: any) {
   return (
-    <div className="overflow-auto rounded-lg border">
+    <div className="overflow-auto rounded-lg border border-white/[0.12]">
       <table className="w-full">
-        <thead className="bg-slate-50">
+        <thead className="glass-surface text-white">
           <tr>
             <th className="p-2">UKM</th>
             <th className="p-2">Nama</th>
@@ -24,7 +24,7 @@ export default function CategoryTable({ items = [], ukms = [] }: any) {
           )}
 
           {items.map((c:any) => (
-            <tr key={c.id.toString()} className="hover:bg-slate-50">
+            <tr key={c.id.toString()} className="glass-hover">
               <td className="p-2">{c.ukm?.name ?? "-"}</td>
               <td className="p-2">{c.name}</td>
               <td className="p-2">{c.type}</td>

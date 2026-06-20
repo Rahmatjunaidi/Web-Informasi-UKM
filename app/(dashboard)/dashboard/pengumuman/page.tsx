@@ -35,9 +35,9 @@ export default async function PengumumanPage({ searchParams }: Props) {
           <Link href="/dashboard/pengumuman/create" className="btn">Tambah Pengumuman</Link>
         </div>
 
-        <div className="overflow-auto rounded-lg border">
+        <div className="overflow-auto rounded-lg border border-white/[0.12]">
           <table className="w-full">
-            <thead className="bg-slate-50">
+            <thead className="glass-surface text-white">
               <tr>
                 <th className="p-2">Judul</th>
                 <th className="p-2">Tanggal</th>
@@ -52,7 +52,7 @@ export default async function PengumumanPage({ searchParams }: Props) {
               )}
 
               {result.items.map((r: any) => (
-                <tr key={String(r.id)} className="hover:bg-slate-50">
+                <tr key={String(r.id)} className="glass-hover">
                   <td className="p-2">{r.title}</td>
                   <td className="p-2">{new Date(r.createdAt).toLocaleDateString("id-ID", { day: "2-digit", month: "long", year: "numeric" })}</td>
                   <td className="p-2">

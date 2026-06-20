@@ -71,9 +71,9 @@ export default async function KeuanganPage({ searchParams }: Props) {
           </form>
         </div>
 
-        <div className="overflow-auto rounded-lg border">
+        <div className="overflow-auto rounded-lg border border-white/[0.12]">
           <table className="w-full">
-            <thead className="bg-slate-50">
+            <thead className="glass-surface text-white">
               <tr>
                 <th className="p-2">UKM</th>
                 <th className="p-2">Kategori</th>
@@ -93,7 +93,7 @@ export default async function KeuanganPage({ searchParams }: Props) {
               )}
 
               {result.items.map((r: any) => (
-                <tr key={r.id.toString()} className="hover:bg-slate-50">
+                <tr key={r.id.toString()} className="glass-hover">
                   <td className="p-2">{r.ukm?.name ?? "-"}</td>
                   <td className="p-2">{r.category?.name ?? "-"}</td>
                   <td className="p-2">{formatDate(r.transactionDate, true)}</td>

@@ -2,9 +2,12 @@
 
 import { prisma } from "@/lib/prisma";
 import bcrypt from "bcryptjs";
-import { redirect } from "next/navigation";
 
-export async function registerAction(formData: FormData) {
+export type RegisterResult =
+  | { ok: true; message: string }
+  | { ok: false; message: string; code?: string };
+
+export async function registerAction(formData: FormData): Promise<RegisterResult> {
   const data = Object.fromEntries(formData.entries());
   const name = String(data.name || "").trim();
   const email = String(data.email || "").trim().toLowerCase();
@@ -12,22 +15,22 @@ export async function registerAction(formData: FormData) {
   const confirm = String(data.confirm || "");
 
   if (!name || !email || !password) {
-    // simple validation — in real app return errors to client
-    throw new Error("Validasi gagal: semua field wajib diisi.");
+    return { ok: false, message: "Validasi gagal: semua field wajib diisi.", code: "VALIDATION" };
   }
 
   if (password !== confirm) {
-    throw new Error("Validasi gagal: password tidak cocok.");
+    return { ok: false, message: "Validasi gagal: password tidak cocok.", code: "VALIDATION" };
   }
 
   const existing = await prisma.user.findUnique({ where: { email } });
   if (existing) {
-    throw new Error("Email sudah terdaftar.");
+    // keep validation logic — instead of throwing, return structured response
+    return { ok: false, message: "Email sudah terdaftar.", code: "EMAIL_EXISTS" };
   }
 
   const role = await prisma.role.findUnique({ where: { name: "MEMBER" } });
   if (!role) {
-    throw new Error("Role MEMBER tidak ditemukan di database.");
+    return { ok: false, message: "Role MEMBER tidak ditemukan di database.", code: "ROLE_MISSING" };
   }
 
   const passwordHash = await bcrypt.hash(password, 12);
@@ -42,6 +45,6 @@ export async function registerAction(formData: FormData) {
     },
   });
 
-  // redirect to login after successful registration
-  redirect("/login");
+  // Return success — UI will show success state and prompt to login
+  return { ok: true, message: "Akun berhasil dibuat. Silakan login." };
 }

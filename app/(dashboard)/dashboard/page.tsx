@@ -64,30 +64,30 @@ export default async function DashboardPage() {
       value: dashboardData.totalMembers,
       description: "Keanggotaan aktif",
       icon: Users,
-      tone: "text-emerald-600 bg-emerald-50",
+      tone: "text-emerald-200 bg-emerald-900/10",
     },
     {
       title: "Total Kegiatan",
       value: dashboardData.totalActivities,
       description: "Seluruh kegiatan UKM",
       icon: CalendarDays,
-      tone: "text-amber-600 bg-amber-50",
+      tone: "text-amber-200 bg-amber-900/10",
     },
     {
       title: "Total Pengumuman",
       value: dashboardData.totalAnnouncements,
       description: "Pengumuman tersimpan",
       icon: Megaphone,
-      tone: "text-sky-600 bg-sky-50",
+      tone: "text-sky-200 bg-sky-900/10",
     },
   ];
 
   return (
     <div className="space-y-6">
       <section className="flex flex-col gap-3">
-        <div className="inline-flex w-fit items-center gap-2 rounded-md border border-white/60 bg-white/65 px-3 py-1 text-sm text-primary shadow-sm backdrop-blur">
+        <div className="inline-flex w-fit items-center gap-2 rounded-md px-3 py-1 text-sm text-primary shadow-sm glass">
           <Activity className="size-4" />
-          Sistem Informasi Pengelolaan UKM - {user.role}
+        UKM UPJ — Lihat Informasi UKM — {user.role}
         </div>
         <div>
           <h1 className="text-3xl font-semibold tracking-normal text-slate-950 sm:text-4xl">Dashboard UKM</h1>
@@ -108,7 +108,7 @@ export default async function DashboardPage() {
                   <div className={cn("flex size-10 items-center justify-center rounded-md", stat.tone)}>
                     <Icon className="size-5" />
                   </div>
-                  <span className="rounded-md border border-white/60 bg-white/65 px-2 py-1 text-xs font-medium text-slate-500">
+                  <span className="rounded-md px-2 py-1 text-xs font-medium text-slate-500 glass-surface">
                     Live DB
                   </span>
                 </div>
@@ -130,7 +130,7 @@ export default async function DashboardPage() {
 
       <section className="grid gap-6 xl:grid-cols-2">
         <GlassCard>
-          <CardHeader className="border-b border-white/55 bg-white/35">
+          <CardHeader className="border-b border-white/[0.12] text-white glass-surface">
             <div className="flex items-center gap-2">
               <ClipboardList className="size-5 text-primary" />
               <div>
@@ -161,7 +161,7 @@ export default async function DashboardPage() {
         </GlassCard>
 
         <GlassCard>
-          <CardHeader className="border-b border-white/55 bg-white/35">
+          <CardHeader className="border-b border-white/[0.12] text-white glass-surface">
             <div className="flex items-center gap-2">
               <Bell className="size-5 text-primary" />
               <div>
@@ -322,13 +322,13 @@ function StatusBadge({ status, variant }: { status: string; variant: "activity" 
     <span
       className={cn(
         "inline-flex h-7 shrink-0 items-center rounded-md border px-2.5 text-xs font-medium",
-        variant === "activity" && status === "Disetujui" && "border-emerald-200 bg-emerald-50 text-emerald-700",
-        variant === "activity" && status === "Berjalan" && "border-sky-200 bg-sky-50 text-sky-700",
-        variant === "activity" && status === "Selesai" && "border-slate-200 bg-slate-50 text-slate-700",
-        variant === "announcement" && status === "Terbit" && "border-emerald-200 bg-emerald-50 text-emerald-700",
-        (status === "Draft" || status === "Diajukan") && "border-amber-200 bg-amber-50 text-amber-700",
+        variant === "activity" && status === "Disetujui" && "border-emerald-300 bg-emerald-900/10 text-emerald-200",
+        variant === "activity" && status === "Berjalan" && "border-sky-300 bg-sky-900/10 text-sky-200",
+        variant === "activity" && status === "Selesai" && "border-white/[0.12] glass-surface text-white",
+        variant === "announcement" && status === "Terbit" && "border-emerald-300 bg-emerald-900/10 text-emerald-200",
+        (status === "Draft" || status === "Diajukan") && "border-amber-300 bg-amber-900/10 text-amber-200",
         (status === "Ditolak" || status === "Dibatalkan" || status === "Arsip") &&
-          "border-rose-200 bg-rose-50 text-rose-700",
+          "border-rose-300 bg-rose-900/10 text-rose-200",
       )}
     >
       {status}

@@ -11,7 +11,7 @@ function Table({ className, ...props }: React.HTMLAttributes<HTMLTableElement>) 
 }
 
 function TableHeader({ className, ...props }: React.HTMLAttributes<HTMLTableSectionElement>) {
-  return <thead className={cn("[&_tr]:border-b [&_tr]:border-white/60", className)} {...props} />;
+  return <thead className={cn("[&_tr]:border-b [&_tr]:border-white/[0.12]", className)} {...props} />;
 }
 
 function TableBody({ className, ...props }: React.HTMLAttributes<HTMLTableSectionElement>) {
@@ -19,24 +19,24 @@ function TableBody({ className, ...props }: React.HTMLAttributes<HTMLTableSectio
 }
 
 function TableFooter({ className, ...props }: React.HTMLAttributes<HTMLTableSectionElement>) {
-  return <tfoot className={cn("border-t bg-muted/50 font-medium", className)} {...props} />;
+  return <tfoot className={cn("border-t border-white/[0.12] glass-surface font-medium", className)} {...props} />;
 }
 
 function TableRow({ className, ...props }: React.HTMLAttributes<HTMLTableRowElement>) {
-  return <tr className={cn("border-b border-white/55 transition-colors hover:bg-primary/5", className)} {...props} />;
+  return <tr className={cn("border-b border-white/[0.06] transition-colors glass-hover", className)} {...props} />;
 }
 
 function TableHead({ className, ...props }: React.ThHTMLAttributes<HTMLTableCellElement>) {
   return (
     <th
-      className={cn("h-11 px-4 text-left align-middle text-xs font-semibold uppercase tracking-normal text-slate-500", className)}
+      className={cn("h-11 px-4 text-left align-middle text-xs font-semibold uppercase tracking-normal text-white", className)}
       {...props}
     />
   );
 }
 
 function TableCell({ className, ...props }: React.TdHTMLAttributes<HTMLTableCellElement>) {
-  return <td className={cn("p-4 align-middle text-slate-700", className)} {...props} />;
+  return <td className={cn("p-4 align-middle text-white", className)} {...props} />;
 }
 
 function TableCaption({ className, ...props }: React.HTMLAttributes<HTMLTableCaptionElement>) {

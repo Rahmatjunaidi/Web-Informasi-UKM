@@ -9,7 +9,7 @@ type DashboardLayoutProps = {
 
 export function DashboardLayout({ children, user }: DashboardLayoutProps) {
   return (
-    <div className="academic-grid dashboard-shell min-h-screen bg-background">
+    <div className="academic-grid dashboard-shell min-h-screen">
       <Sidebar role={user.role} />
       <div className="lg:pl-80">
         <div className="px-4 py-4 lg:px-6">

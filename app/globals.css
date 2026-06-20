@@ -4,94 +4,220 @@
 
 @layer base {
   :root {
-    --background: 210 40% 98%;
-    --foreground: 222 47% 11%;
-    --card: 0 0% 100%;
-    --card-foreground: 222 47% 11%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 222 47% 11%;
-    --primary: 217 91% 60%;
-    --primary-foreground: 210 40% 98%;
-    --secondary: 213 94% 68%;
-    --secondary-foreground: 222 47% 11%;
-    --muted: 214 32% 91%;
-    --muted-foreground: 215 16% 47%;
-    --accent: 214 95% 93%;
-    --accent-foreground: 217 91% 35%;
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
-    --border: 214 32% 88%;
-    --input: 214 32% 88%;
-    --ring: 217 91% 60%;
-    --glass: 255 255 255 / 0.65;
-    --glass-border: 255 255 255 / 0.25;
-    --radius: 0.5rem;
+    /* Palette tuned for glassmorphism premium */
+    --bg-from: 230 29 70; /* not used directly, fallback */
+    --background-1: 14 15 20; /* slate-950 */
+    --background-2: 17 24 39; /* indigo-950 approximation */
+    --foreground: 210 40% 98%;
+    --primary-500: 59 130 246; /* blue-500 */
+    --primary-600: 79 70 229; /* indigo-600 */
+    --primary-400: 6 182 212; /* cyan-400 */
+    --glass: 255 255 255 / 0.10; /* glass card tint */
+    --glass-strong: 255 255 255 / 0.15;
+    --glass-border: 255 255 255 / 0.20;
+    --radius: 1rem;
   }
 
   .dark {
-    --background: 222.2 84% 4.9%;
+    --background-1: 2 6 23;
+    --background-2: 12 5 24;
     --foreground: 210 40% 98%;
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
-    --primary: 217.2 91.2% 59.8%;
-    --primary-foreground: 222.2 47.4% 11.2%;
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 224.3 76.3% 48%;
   }
 }
 
 @layer base {
-  * {
-    @apply border-border;
-  }
-
+  * { @apply border-border; }
+  html, body, #__next { height: 100%; }
   body {
-    @apply bg-background text-foreground antialiased;
-    font-feature-settings:
-      "rlig" 1,
-      "calt" 1;
+    background-image: linear-gradient(135deg, rgb(15 23 42) 0%, rgb(14 16 22) 50%, rgb(15 23 42) 100%);
+    /* explicit gradient matching spec */
+    background: linear-gradient(135deg, rgb(15 17 24), rgb(27 13 71 ));
+    @apply text-white antialiased;
+    font-feature-settings: "rlig" 1, "calt" 1;
   }
 }
 
 @layer utilities {
+  /* Premium glass card */
   .glass-panel {
-    background: rgb(var(--glass));
-    border: 1px solid rgb(var(--glass-border));
-    box-shadow:
-      0 18px 50px rgb(15 23 42 / 0.08),
-      inset 0 1px 0 rgb(255 255 255 / 0.55);
-    backdrop-filter: blur(20px) saturate(150%);
+    /* glass: subtle, dark purple-friendly */
+    background: rgba(255,255,255,0.06); /* target glass */
+    border: 1px solid rgba(255,255,255,0.12); /* subtle border */
+    backdrop-filter: blur(16px) saturate(140%);
+    -webkit-backdrop-filter: blur(16px) saturate(140%);
+    border-radius: 1rem; /* rounded-3xl-ish */
+    box-shadow: 0 6px 30px rgba(110,93,246,0.08); /* soft purple glow */
+  }
+
+  .glass {
+    /* utility glass style for smaller elements */
+    background: rgba(255,255,255,0.06);
+    backdrop-filter: blur(12px) saturate(140%);
+    -webkit-backdrop-filter: blur(12px) saturate(140%);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 0.75rem;
+  }
+
+  .glass-hover:hover {
+    background: rgba(255,255,255,0.09);
+    transform: translateY(-2px);
+    transition: all 220ms;
   }
 
   .glass-surface {
-    @apply border border-white/50 bg-white/70 shadow-sm backdrop-blur-xl;
+    border: 1px solid rgba(255,255,255,0.12);
+    background: rgba(255,255,255,0.04);
+    backdrop-filter: blur(14px) saturate(140%);
   }
 
-  .focus-ring {
-    @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 focus-visible:ring-offset-2 focus-visible:ring-offset-background;
+  .floating-orb {
+    position: absolute;
+    border-radius: 9999px;
+    filter: blur(40px);
+    opacity: 0.9;
+    transform: translate3d(0,0,0);
+    animation: float 8s ease-in-out infinite;
   }
 
-  .academic-grid {
-    background-image:
-      linear-gradient(rgb(59 130 246 / 0.08) 1px, transparent 1px),
-      linear-gradient(90deg, rgb(59 130 246 / 0.08) 1px, transparent 1px);
-    background-size: 32px 32px;
+  @keyframes float {
+    0% { transform: translateY(0px) translateX(0px); }
+    50% { transform: translateY(-20px) translateX(10px); }
+    100% { transform: translateY(0px) translateX(0px); }
   }
 
-  .dashboard-shell {
-    background:
-      linear-gradient(135deg, rgb(248 250 252 / 0.98) 0%, rgb(239 246 255 / 0.86) 42%, rgb(248 250 252 / 0.96) 100%),
-      linear-gradient(90deg, rgb(59 130 246 / 0.05), rgb(16 185 129 / 0.04), rgb(245 158 11 / 0.04));
+  .navbar-glass {
+    position: sticky;
+    top: 0;
+    z-index: 40;
+    background: rgba(255,255,255,0.06);
+    backdrop-filter: blur(18px) saturate(160%);
+    border-bottom: 1px solid rgba(255,255,255,0.12);
+  }
+
+  .btn-glass {
+    @apply rounded-full px-4 py-2 text-sm;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.12);
+    transition: all 200ms;
+  }
+
+  .active-indicator {
+    height: 3px; border-radius: 9999px; background: linear-gradient(90deg, rgba(79,70,229,1), rgba(59,130,246,1));
+  }
+
+  /* Utility small helpers */
+  .scale-102 { transform: scale(1.02); }
+
+  /* Icon / element size helpers (used across components) */
+  .size-3 { width: 0.75rem; height: 0.75rem; }
+  .size-4 { width: 1rem; height: 1rem; }
+  .size-5 { width: 1.25rem; height: 1.25rem; }
+  .size-6 { width: 1.5rem; height: 1.5rem; }
+  .size-8 { width: 2rem; height: 2rem; }
+  .size-10 { width: 2.5rem; height: 2.5rem; }
+  .size-11 { width: 2.75rem; height: 2.75rem; }
+  .size-12 { width: 3rem; height: 3rem; }
+  .size-24 { width: 6rem; height: 6rem; }
+
+}
+
+/* Disable hover visual changes for form fields to keep dark glass look */
+/* Normal and hover states identical; focus still shows purple ring */
+@layer utilities {
+  input, textarea, select, input[type="text"], input[type="email"], input[type="password"], input[type="search"], .focus-ring, .btn-glass, .glass-input, .upload-area, .search-input {
+    background: rgba(255,255,255,0.06) !important;
+    border: 1px solid rgba(255,255,255,0.12) !important;
+    color: #FFFFFF !important;
+    transition: none !important;
+  }
+
+  input::placeholder, textarea::placeholder {
+    color: rgba(255,255,255,0.55) !important;
+    opacity: 1 !important;
+  }
+
+  /* Prevent hover from changing background, border, text, placeholder */
+  input:hover, textarea:hover, select:hover, input[type="text"]:hover, input[type="email"]:hover, input[type="password"]:hover, input[type="search"]:hover, .focus-ring:hover, .btn-glass:hover, .glass-input:hover, .upload-area:hover, .search-input:hover {
+    background: rgba(255,255,255,0.06) !important;
+    border-color: rgba(255,255,255,0.12) !important;
+    color: #FFFFFF !important;
+    transform: none !important;
+    box-shadow: none !important;
+  }
+
+  /* Keep focus styles (visual affordance for active field) */
+  input:focus, textarea:focus, select:focus, input[type="text"]:focus, input[type="email"]:focus, input[type="password"]:focus, input[type="search"]:focus, .focus-ring:focus {
+    border-color: #8B5CF6 !important;
+    box-shadow: 0 0 0 4px rgba(139,92,246,0.20) !important;
+    outline: none !important;
+  }
+
+  /* For elements that used hover:bg-white/... ensure no brightness change on hover */
+  .hover\:bg-white\/\[0\.08\]\:not(:focus),
+  .hover\:bg-white\/\[0\.03\]\:not(:focus),
+  .hover\:bg-white\/5:not(:focus) {
+    background: rgba(255,255,255,0.06) !important;
+  }
+
+  /* Dropdown / Select / Popover content styling for dark glass theme */
+  /* Target both native select option rendering where supported and common custom menu classes */
+  select option {
+    background: rgba(28,22,72,0.95) !important; /* dark purple glass */
+    color: #ffffff !important;
+    backdrop-filter: blur(8px) !important;
+    -webkit-backdrop-filter: blur(8px) !important;
+  }
+
+  select option:checked,
+  select option:active,
+  select option:hover {
+    background: rgba(255,255,255,0.08) !important;
+    color: #ffffff !important;
+  }
+
+  /* For custom dropdowns (Radix / Headless UI / custom): common class patterns */
+  .select-content,
+  .SelectContent,
+  .dropdown-content,
+  .DropdownMenuContent,
+  .popover-content,
+  .PopoverContent,
+  .radix-select-content,
+  .menu-content,
+  .menu-popup {
+    background: rgba(28,22,72,0.95) !important;
+    color: #ffffff !important;
+    border: 1px solid rgba(255,255,255,0.12) !important;
+    backdrop-filter: blur(12px) !important;
+    -webkit-backdrop-filter: blur(12px) !important;
+  }
+
+  .select-item,
+  .SelectItem,
+  .dropdown-item,
+  .DropdownMenuItem,
+  .popover-item,
+  .PopoverItem,
+  .menu-item,
+  .menu-option {
+    background: transparent !important;
+    color: #ffffff !important;
+  }
+
+  .select-item:hover,
+  .SelectItem:hover,
+  .dropdown-item:hover,
+  .DropdownMenuItem:hover,
+  .popover-item:hover,
+  .PopoverItem:hover,
+  .menu-item:hover,
+  .menu-option:hover {
+    background: rgba(255,255,255,0.08) !important;
+    color: #ffffff !important;
+  }
+
+  /* Remove legacy light bg utility usage if applied */
+  .bg-popover, .bg-background, .bg-muted, .bg-white, .bg-white\/\[0\.04\], .bg-white\/5 {
+    background: transparent !important;
   }
 }

@@ -4,7 +4,7 @@ const envSchema = z.object({
   DATABASE_URL: z.string().min(1),
   AUTH_SECRET: z.string().min(32),
   AUTH_URL: z.string().url().optional(),
-  NEXT_PUBLIC_APP_NAME: z.string().default("Sistem Informasi UKM"),
+  NEXT_PUBLIC_APP_NAME: z.string().default("UKM UPJ"),
   NEXT_PUBLIC_APP_URL: z.string().url().default("http://localhost:3000"),
 });
 

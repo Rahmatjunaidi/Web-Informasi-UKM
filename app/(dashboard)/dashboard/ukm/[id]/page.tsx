@@ -61,9 +61,9 @@ export default async function UkmDetailPage({ params }: UkmDetailPageProps) {
   const members = ukmWithMembers?.memberships ?? [];
   const activities = ukmWithActivities?.activities ?? [];
 
-  const statusColor = ukm.status === "ACTIVE" 
-    ? "border-emerald-200 bg-emerald-50 text-emerald-700" 
-    : "border-slate-200 bg-slate-50 text-slate-600";
+  const statusColor = ukm.status === "ACTIVE"
+    ? "border-emerald-300 bg-emerald-900/10 text-emerald-200"
+    : "border-white/[0.12] glass-surface text-white";
 
   const formatDate = (date: Date | null) => {
     if (!date) return "-";
@@ -225,7 +225,7 @@ export default async function UkmDetailPage({ params }: UkmDetailPageProps) {
             <div className="overflow-x-auto">
               <Table>
                 <TableHeader>
-                  <TableRow className="bg-white/55 hover:bg-white/55">
+                  <TableRow className="bg-transparent glass-hover">
                     <TableHead>Nama</TableHead>
                     <TableHead>NIM</TableHead>
                     <TableHead>Posisi</TableHead>
@@ -237,7 +237,7 @@ export default async function UkmDetailPage({ params }: UkmDetailPageProps) {
                       <TableCell className="font-medium">{member.student.name}</TableCell>
                       <TableCell className="text-sm text-muted-foreground">{member.student.nim}</TableCell>
                       <TableCell className="text-sm">
-                        <span className="inline-flex items-center rounded-md bg-blue-50 px-2 py-1 text-xs font-medium text-blue-700 border border-blue-200">
+                        <span className="inline-flex items-center rounded-md px-2 py-1 text-xs font-medium text-white border border-white/[0.06] glass-surface">
                           {member.position}
                         </span>
                       </TableCell>
@@ -270,7 +270,7 @@ export default async function UkmDetailPage({ params }: UkmDetailPageProps) {
                   <p className="text-xs text-muted-foreground mt-1">
                     {formatDate(new Date(activity.startsAt))}
                   </p>
-                  <span className="inline-flex items-center rounded-full bg-blue-50 px-2 py-1 text-xs font-medium text-blue-700 border border-blue-200 mt-2">
+                  <span className="inline-flex items-center rounded-full px-2 py-1 text-xs font-medium text-white border border-white/[0.06] glass-surface mt-2">
                     {activity.status}
                   </span>
                 </div>

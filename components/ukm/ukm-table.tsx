@@ -25,7 +25,7 @@ export function UkmTable({ data }: UkmTableProps) {
     <GlassCard className="overflow-hidden">
       <Table>
         <TableHeader>
-          <TableRow className="bg-white/55 hover:bg-white/55">
+          <TableRow className="bg-transparent glass-hover">
             <TableHead>UKM</TableHead>
             <TableHead>Kode</TableHead>
             <TableHead>Status</TableHead>
@@ -121,7 +121,7 @@ export function StatusBadge({ status }: { status: "ACTIVE" | "INACTIVE" }) {
         "inline-flex h-7 items-center rounded-md border px-2.5 text-xs font-medium",
         status === "ACTIVE"
           ? "border-emerald-200 bg-emerald-50 text-emerald-700"
-          : "border-slate-200 bg-slate-50 text-slate-600",
+          : "border-white/[0.12] glass-surface text-white",
       )}
     >
       {status}

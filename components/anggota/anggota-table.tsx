@@ -15,7 +15,7 @@ export function AnggotaTable({ data }: AnggotaTableProps) {
     <GlassCard className="overflow-hidden">
       <Table>
         <TableHeader>
-          <TableRow className="bg-white/55 hover:bg-white/55">
+          <TableRow className="bg-transparent glass-hover">
             <TableHead>Nama</TableHead>
             <TableHead>NIM</TableHead>
             <TableHead>Program</TableHead>

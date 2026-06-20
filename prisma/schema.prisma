@@ -337,3 +337,14 @@ model Announcement {
   @@index([createdByUserId])
   @@map("announcements")
 }
+
+// Website settings key-value store for editable public content
+model WebsiteSetting {
+  id        BigInt   @id @default(autoincrement())
+  key       String   @unique @db.VarChar(150)
+  value     String   @db.Text
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("website_settings")
+}

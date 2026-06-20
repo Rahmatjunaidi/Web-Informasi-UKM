@@ -16,7 +16,7 @@ export function KegiatanTable({ data }: Props) {
     <GlassCard className="overflow-hidden">
       <Table>
         <TableHeader>
-          <TableRow className="bg-white/55 hover:bg-white/55">
+          <TableRow className="bg-transparent glass-hover">
             <TableHead>Judul</TableHead>
             <TableHead>UKM</TableHead>
             <TableHead>Lokasi</TableHead>

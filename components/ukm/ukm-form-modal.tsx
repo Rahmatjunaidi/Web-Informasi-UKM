@@ -122,7 +122,7 @@ export function UkmFormModal({ mode, trigger, ukm, defaultOpen = false }: UkmFor
             <div className="space-y-2">
               <Label htmlFor={`${mode}-status`}>Status</Label>
               <select
-                className="focus-ring h-10 w-full rounded-md border border-slate-200/80 bg-white/75 px-3 text-sm shadow-sm"
+                className="focus-ring h-10 w-full rounded-md px-3 text-sm text-white glass"
                 defaultValue={ukm?.status ?? "ACTIVE"}
                 id={`${mode}-status`}
                 name="status"
@@ -142,7 +142,7 @@ export function UkmFormModal({ mode, trigger, ukm, defaultOpen = false }: UkmFor
           <div className="space-y-2">
             <Label htmlFor={`${mode}-description`}>Deskripsi</Label>
             <textarea
-              className="focus-ring min-h-28 w-full rounded-md border border-slate-200/80 bg-white/75 px-3 py-2 text-sm shadow-sm transition-colors placeholder:text-slate-400 hover:bg-white"
+              className="focus-ring min-h-28 w-full rounded-md px-3 py-2 text-sm text-white transition-colors placeholder:text-white/[0.55] glass"
               defaultValue={ukm?.description ?? ""}
               id={`${mode}-description`}
               name="description"
@@ -154,7 +154,7 @@ export function UkmFormModal({ mode, trigger, ukm, defaultOpen = false }: UkmFor
             <Label htmlFor={`${mode}-logo`}>Logo UKM</Label>
             <label
               className={cn(
-                "flex min-h-24 cursor-pointer items-center gap-4 rounded-md border border-dashed border-slate-300 bg-white/55 p-4 text-sm text-muted-foreground transition-colors hover:bg-white/75",
+                "flex min-h-24 cursor-pointer items-center gap-4 rounded-md p-4 text-sm text-white glass transition-colors",
                 state.errors?.logo && "border-destructive",
               )}
               htmlFor={`${mode}-logo`}
@@ -163,8 +163,8 @@ export function UkmFormModal({ mode, trigger, ukm, defaultOpen = false }: UkmFor
                 <ImagePlus className="size-5" />
               </div>
               <div>
-                <p className="font-medium text-slate-950">Upload logo</p>
-                <p className="mt-1 text-xs">PNG, JPG, WEBP, atau GIF. Maksimal 2MB.</p>
+                <p className="font-medium text-white">Upload logo</p>
+                <p className="mt-1 text-xs text-white/[0.75]">PNG, JPG, WEBP, atau GIF. Maksimal 2MB.</p>
               </div>
             </label>
             <Input accept="image/*" className="hidden" id={`${mode}-logo`} name="logo" type="file" />

@@ -23,7 +23,13 @@ export default auth((request) => {
 
   if (isAuthRoute(pathname)) {
     if (isLoggedIn) {
-      return NextResponse.redirect(new URL(defaultLoginRedirect, nextUrl));
+      // Redirect logged-in users away from auth pages to role-appropriate landing
+      const role = request.auth?.user?.role as string | undefined;
+      if (role === "SUPER_ADMIN" || role === "ADMIN") {
+        return NextResponse.redirect(new URL("/dashboard", nextUrl));
+      }
+      // MEMBER and any other roles land on public root
+      return NextResponse.redirect(new URL("/", nextUrl));
     }
 
     return NextResponse.next();
@@ -35,6 +41,11 @@ export default auth((request) => {
   }
 
   if (isLoggedIn && !canAccessRoute(pathname, request.auth?.user.role)) {
+    // If user is logged in but not allowed to access this route, redirect to role-appropriate landing
+    const role = request.auth?.user?.role as string | undefined;
+    if (role === "MEMBER") {
+      return NextResponse.redirect(new URL("/", nextUrl));
+    }
     return NextResponse.redirect(new URL(defaultLoginRedirect, nextUrl));
   }
 
