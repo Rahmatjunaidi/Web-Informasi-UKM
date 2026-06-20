@@ -7,6 +7,7 @@ import { prisma } from "@/lib/prisma";
 import { createStudentSchema, studentSchema, membershipSchema } from "@/lib/validators/anggota";
 import bcrypt from "bcryptjs";
 import { randomBytes } from "crypto";
+import { MembershipPosition, MembershipStatus } from "@prisma/client";
 
 export type AnggotaActionState = { ok: boolean; message: string; errors?: Record<string, string> };
 const initial: AnggotaActionState = { ok: false, message: "" };
@@ -63,10 +64,10 @@ export async function createStudentAction(_: AnggotaActionState = initial, formD
           userId: user.id,
           nim: parsed.data.nim,
           name: parsed.data.name,
-          studyProgram: parsed.data.studyProgram ?? undefined,
-          faculty: parsed.data.faculty ?? undefined,
-          phone: parsed.data.phone ?? undefined,
-          address: parsed.data.address ?? undefined,
+studyProgram: parsed.data.studyProgram ?? "",
+faculty: parsed.data.faculty ?? "",
+phone: parsed.data.phone ?? null,
+address: parsed.data.address ?? null,
         },
       });
 
@@ -75,8 +76,13 @@ export async function createStudentAction(_: AnggotaActionState = initial, formD
           data: {
             ukmId: BigInt(ukmId),
             studentId: student.id,
-            position: (formData.get("position") as string) ?? "MEMBER",
-            status: (formData.get("membershipStatus") as any) ?? "ACTIVE",
+            position:
+  ((formData.get("position") as MembershipPosition) ??
+    MembershipPosition.MEMBER),
+
+status:
+  ((formData.get("membershipStatus") as MembershipStatus) ??
+    MembershipStatus.ACTIVE),
             joinedAt: formData.get("joinedAt") ? new Date(String(formData.get("joinedAt"))) : undefined,
             createdByUserId: undefined,
           },
@@ -115,7 +121,17 @@ export async function updateStudentAction(_: AnggotaActionState = initial, formD
   }
 
   try {
-    await prisma.student.update({ where: { id: BigInt(id) }, data: parsed.data });
+    await prisma.student.update({
+  where: { id: BigInt(id) },
+  data: {
+    nim: parsed.data.nim,
+    name: parsed.data.name,
+    studyProgram: parsed.data.studyProgram ?? "",
+    faculty: parsed.data.faculty ?? "",
+    phone: parsed.data.phone ?? null,
+    address: parsed.data.address ?? null,
+  },
+});
 
     revalidatePath("/dashboard/anggota");
     revalidatePath(`/dashboard/anggota/${id}`);
@@ -154,8 +170,13 @@ export async function assignMembershipAction(_: AnggotaActionState = initial, fo
       data: {
         ukmId: BigInt(parsed.data.ukmId),
         studentId: BigInt(parsed.data.studentId),
-        position: parsed.data.position ?? "MEMBER",
-        status: (parsed.data.status as any) ?? "ACTIVE",
+       position:
+  (parsed.data.position as MembershipPosition) ??
+  MembershipPosition.MEMBER,
+
+status:
+  (parsed.data.status as MembershipStatus) ??
+  MembershipStatus.ACTIVE,
         joinedAt: parsed.data.joinedAt ? new Date(parsed.data.joinedAt) : undefined,
       },
     });

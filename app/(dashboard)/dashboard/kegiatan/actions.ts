@@ -41,7 +41,9 @@ export async function createActivityAction(_: KegiatanActionState = initial, for
         description: payload.description ?? undefined,
         location: payload.location ?? undefined,
         startsAt: new Date(payload.startsAt),
-        endsAt: payload.endsAt ? new Date(payload.endsAt) : undefined,
+        endsAt: payload.endsAt
+  ? new Date(payload.endsAt)
+  : new Date(payload.startsAt),
         budgetAmount: new Prisma.Decimal(payload.budgetAmount),
         status: payload.status as any,
       },

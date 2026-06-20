@@ -8,12 +8,13 @@ import { deleteFinanceAction } from "../actions";
 export const metadata: Metadata = { title: "Detail Transaksi - Keuangan" };
 export const dynamic = "force-dynamic";
 
-type Props = { params: { id: string } };
+type Props = { params: Promise<{ id: string }> };
 
 export default async function DetailPage({ params }: Props) {
   await requireUser();
-  const id = Number(params.id);
-  const tx = await getFinanceById(id);
+  const { id } = await params;
+const financeId = Number(id);
+  const tx = await getFinanceById(financeId);
   if (!tx) return <div>Transaksi tidak ditemukan</div>;
 
   return (

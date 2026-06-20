@@ -29,14 +29,14 @@ export async function getStudentList(options?: {
 
   if (options?.search) {
     where.OR = [
-      { nim: { contains: options.search, mode: "insensitive" } },
-      { name: { contains: options.search, mode: "insensitive" } },
+      { nim: { contains: options.search } },
+      { name: { contains: options.search } },
     ];
   }
 
   if (options?.ukmId || options?.membershipStatus) {
     where.memberships = {
-      some: Object.assign({}, options.ukmId ? { ukmId: BigInt(options.ukmId as any) } : {}, options.membershipStatus ? { status: options.membershipStatus } : {}),
+      some: Object.assign({}, options.ukmId ? { ukmId: BigInt(options.ukmId as any) } : {}, options.membershipStatus ? { status: options.membershipStatus as any } : {}) as any,
     };
   }
 
@@ -77,7 +77,7 @@ export async function getStudentList(options?: {
   };
 }
 
-export async function getStudentById(id: BigInt) {
+export async function getStudentById(id: bigint) {
   return prisma.student.findUnique({
     where: { id },
     select: {

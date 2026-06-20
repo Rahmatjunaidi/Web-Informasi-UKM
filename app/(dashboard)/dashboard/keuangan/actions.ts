@@ -13,7 +13,7 @@ import {
 } from "@/lib/validators/finance";
 import { createCategory, updateCategory, deleteCategory } from "@/lib/queries/finance";
 
-export async function createFinanceAction(formData: FormData) {
+export async function createFinanceAction(formData: FormData): Promise<void> {
   const parsed = createFinanceSchema.safeParse(Object.fromEntries(formData.entries()));
   if (!parsed.success) {
     console.log("===== FINANCE VALIDATION ERROR =====");
@@ -22,10 +22,7 @@ export async function createFinanceAction(formData: FormData) {
     console.log("===== FINANCE FORM DATA =====");
     console.log(Object.fromEntries(formData.entries()));
 
-    return {
-      ok: false,
-      message: "Periksa data transaksi.",
-    };
+    return;
   }
 
   const d = parsed.data;
@@ -54,7 +51,6 @@ export async function createFinanceAction(formData: FormData) {
   };
 
   revalidatePath("/dashboard/keuangan");
-  return { ok: true, data: mapped };
 }
 
 // Finance category CRUD actions
@@ -124,7 +120,7 @@ export async function deleteCategoryAction(_prevState: any = {}, formData: FormD
   return { ok: true };
 }
 
-export async function updateFinanceAction(formData: FormData) {
+export async function updateFinanceAction(formData: FormData): Promise<void> {
   const parsed = updateFinanceSchema.safeParse(Object.fromEntries(formData.entries()));
   if (!parsed.success) {
     console.log("===== FINANCE VALIDATION ERROR =====");
@@ -133,10 +129,7 @@ export async function updateFinanceAction(formData: FormData) {
     console.log("===== FINANCE FORM DATA =====");
     console.log(Object.fromEntries(formData.entries()));
 
-    return {
-      ok: false,
-      message: "Periksa data transaksi.",
-    };
+    return;
   }
 
   const d = parsed.data;
@@ -165,10 +158,10 @@ export async function updateFinanceAction(formData: FormData) {
   };
 
   revalidatePath("/dashboard/keuangan");
-  return mapped;
+  return;
 }
 
-export async function deleteFinanceAction(formData: FormData) {
+export async function deleteFinanceAction(formData: FormData): Promise<void> {
   const parsed = deleteFinanceSchema.safeParse(Object.fromEntries(formData.entries()));
   if (!parsed.success) {
     console.log("===== FINANCE VALIDATION ERROR =====");
@@ -177,16 +170,12 @@ export async function deleteFinanceAction(formData: FormData) {
     console.log("===== FINANCE FORM DATA =====");
     console.log(Object.fromEntries(formData.entries()));
 
-    return {
-      ok: false,
-      message: "Periksa data transaksi.",
-    };
+    return;
   }
 
   const { id } = parsed.data;
   await prisma.financeTransaction.delete({ where: { id } });
   revalidatePath("/dashboard/keuangan");
-  return true;
 }
 
 export async function createApprovalAction(formData: FormData) {

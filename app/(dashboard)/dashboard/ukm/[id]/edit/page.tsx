@@ -6,8 +6,8 @@ import { UkmFormModal } from "@/components/ukm/ukm-form-modal";
 
 export const dynamic = "force-dynamic";
 
-export async function generateMetadata({ params }: { params: { id: string } }): Promise<Metadata> {
-  const id = params.id;
+export async function generateMetadata({ params }: { params: Promise<{ id: string }> }): Promise<Metadata> {
+  const { id } = await params;
   try {
     const ukm = await getUkmById(BigInt(id));
     if (!ukm) return { title: "UKM tidak ditemukan" };
@@ -17,12 +17,12 @@ export async function generateMetadata({ params }: { params: { id: string } }): 
   }
 }
 
-export default async function UkmEditPage({ params }: { params: { id: string } }) {
+export default async function UkmEditPage({ params }: { params: Promise<{ id: string }> }) {
   await requireUser();
 
-  const { id } = params;
+  const { id } = await params;
 
-  let ukmId: BigInt;
+  let ukmId: bigint;
   try {
     ukmId = BigInt(id);
   } catch {

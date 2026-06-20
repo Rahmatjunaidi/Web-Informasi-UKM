@@ -41,14 +41,14 @@ export default async function UkmDetailPage({ params }: UkmDetailPageProps) {
 
   const { id } = await params;
 
-  let ukmId: BigInt;
+  let ukmId: bigint;
   try {
     ukmId = BigInt(id);
   } catch {
     return notFound();
   }
 
-  const [ukm, ukmWithMembers, ukmWithActivities] = await Promise.all([
+  const [ukm, ukmWithMembers, ukmWithActivities]: [any, any, any] = await Promise.all([
     getUkmById(ukmId),
     getUkmWithMembers(ukmId),
     getUkmWithActivities(ukmId),
@@ -58,8 +58,8 @@ export default async function UkmDetailPage({ params }: UkmDetailPageProps) {
     return notFound();
   }
 
-  const members = ukmWithMembers?.memberships ?? [];
-  const activities = ukmWithActivities?.activities ?? [];
+  const members = (ukmWithMembers as any)?.memberships ?? [];
+  const activities = (ukmWithActivities as any)?.activities ?? [];
 
   const statusColor = ukm.status === "ACTIVE"
     ? "border-emerald-300 bg-emerald-900/10 text-emerald-200"
@@ -232,7 +232,7 @@ export default async function UkmDetailPage({ params }: UkmDetailPageProps) {
                   </TableRow>
                 </TableHeader>
                 <TableBody>
-                  {members.map((member) => (
+                  {members.map((member: any) => (
                     <TableRow key={member.id}>
                       <TableCell className="font-medium">{member.student.name}</TableCell>
                       <TableCell className="text-sm text-muted-foreground">{member.student.nim}</TableCell>
@@ -264,7 +264,7 @@ export default async function UkmDetailPage({ params }: UkmDetailPageProps) {
           </CardHeader>
           {activities.length > 0 ? (
             <div className="space-y-3 p-6">
-              {activities.slice(0, 5).map((activity) => (
+              {activities.slice(0, 5).map((activity: any) => (
                 <div key={activity.id} className="border-l-2 border-primary/30 pl-3 pb-3">
                   <p className="font-medium text-sm text-slate-950">{activity.title}</p>
                   <p className="text-xs text-muted-foreground mt-1">

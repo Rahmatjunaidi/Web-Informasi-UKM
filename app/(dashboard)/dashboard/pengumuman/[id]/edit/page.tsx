@@ -8,7 +8,7 @@ import { GlassCard, CardHeader, CardTitle, CardContent } from "@/components/ui/c
 export const metadata: Metadata = { title: "Edit Pengumuman - Dashboard" };
 export const dynamic = "force-dynamic";
 
-type Props = { params: { id: string } };
+type Props = { params: Promise<{ id: string }> };
 
 export default async function EditPage({ params }: Props) {
   await requireUser();

@@ -1,7 +1,7 @@
 import { Prisma } from "@prisma/client";
 import { prisma } from "@/lib/prisma";
 
-const ACTIVITY_SELECT = {
+const ACTIVITY_SELECT = Prisma.validator<Prisma.ActivitySelect>()({
   id: true,
   ukmId: true,
   title: true,
@@ -13,8 +13,13 @@ const ACTIVITY_SELECT = {
   status: true,
   createdAt: true,
   updatedAt: true,
-  ukm: { select: { id: true, name: true } },
-};
+  ukm: {
+    select: {
+      id: true,
+      name: true,
+    },
+  },
+});
 
 export async function getActivityList(options?: {
   search?: string;
@@ -31,9 +36,9 @@ export async function getActivityList(options?: {
 
   if (options?.search) {
     where.OR = [
-      { title: { contains: options.search, mode: "insensitive" } },
-      { description: { contains: options.search, mode: "insensitive" } },
-      { location: { contains: options.search, mode: "insensitive" } },
+      { title: { contains: options.search } },
+      { description: { contains: options.search } },
+      { location: { contains: options.search } },
     ];
   }
 
@@ -56,7 +61,7 @@ export async function getActivityList(options?: {
   };
 }
 
-export async function getActivityById(id: BigInt) {
+export async function getActivityById(id: bigint) {
   return prisma.activity.findUnique({ where: { id }, select: ACTIVITY_SELECT });
 }
 

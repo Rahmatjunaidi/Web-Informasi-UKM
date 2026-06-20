@@ -6,9 +6,10 @@ import { KegiatanFormModal } from "@/components/kegiatan/kegiatan-form-modal";
 
 export const dynamic = "force-dynamic";
 
-export async function generateMetadata({ params }: { params: { id: string } }): Promise<Metadata> {
+export async function generateMetadata({ params }: { params: Promise<{ id: string }> }): Promise<Metadata> {
   try {
-    const data = await getActivityById(BigInt(params.id));
+    const { id } = await params;
+const data = await getActivityById(BigInt(id));
     if (!data) return { title: "Kegiatan tidak ditemukan" };
     return { title: `Edit ${data.title}` };
   } catch {
@@ -16,10 +17,10 @@ export async function generateMetadata({ params }: { params: { id: string } }): 
   }
 }
 
-export default async function KegiatanEditPage({ params }: { params: { id: string } }) {
+export default async function KegiatanEditPage({ params }: { params: Promise<{ id: string }> }) {
   await requireUser();
-  const { id } = params;
-  let activityId: BigInt;
+  const { id } = await params;
+  let activityId: bigint;
   try { activityId = BigInt(id); } catch { return notFound(); }
 
   const a = await getActivityById(activityId);

@@ -29,7 +29,7 @@ export type UkmWithAdvisor = Prisma.UkmGetPayload<{
 /**
  * Get a single UKM by ID with advisor information
  */
-export async function getUkmById(id: BigInt) {
+export async function getUkmById(id: bigint) {
   return prisma.ukm.findUnique({
     where: { id },
     select: UKM_QUERY_SELECT,
@@ -54,9 +54,9 @@ export async function getUkmList(options?: {
   // Add search filter
   if (options?.search) {
     where.OR = [
-      { code: { contains: options.search, mode: "insensitive" } },
-      { name: { contains: options.search, mode: "insensitive" } },
-      { description: { contains: options.search, mode: "insensitive" } },
+      { code: { contains: options.search } },
+      { name: { contains: options.search } },
+      { description: { contains: options.search } },
     ];
   }
 
@@ -92,7 +92,7 @@ export async function getUkmList(options?: {
 /**
  * Get UKM with members count
  */
-export async function getUkmWithMembersCount(id: BigInt) {
+export async function getUkmWithMembersCount(id: bigint) {
   const ukm = await prisma.ukm.findUnique({
     where: { id },
     select: {
@@ -116,7 +116,7 @@ export async function getUkmWithMembersCount(id: BigInt) {
 /**
  * Get UKM with members list
  */
-export async function getUkmWithMembers(id: BigInt, options?: { limit?: number }) {
+export async function getUkmWithMembers(id: bigint, options?: { limit?: number }) {
   const limit = options?.limit ?? 50;
 
   return prisma.ukm.findUnique({
@@ -148,7 +148,7 @@ export async function getUkmWithMembers(id: BigInt, options?: { limit?: number }
 /**
  * Get UKM with activities list
  */
-export async function getUkmWithActivities(id: BigInt, options?: { limit?: number }) {
+export async function getUkmWithActivities(id: bigint, options?: { limit?: number }) {
   const limit = options?.limit ?? 10;
 
   return prisma.ukm.findUnique({

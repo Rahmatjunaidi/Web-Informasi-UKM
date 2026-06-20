@@ -9,9 +9,10 @@ import { formatDate } from "@/lib/utils";
 
 export const dynamic = "force-dynamic";
 
-export async function generateMetadata({ params }: { params: { id: string } }): Promise<Metadata> {
+export async function generateMetadata({ params }: { params: Promise<{ id: string }> }): Promise<Metadata> {
   try {
-    const data = await getActivityById(BigInt(params.id));
+    const { id } = await params;
+const data = await getActivityById(BigInt(id));
     if (!data) return { title: "Kegiatan Tidak Ditemukan" };
     return { title: `${data.title} - Detail Kegiatan` };
   } catch {
@@ -19,10 +20,10 @@ export async function generateMetadata({ params }: { params: { id: string } }): 
   }
 }
 
-export default async function KegiatanDetailPage({ params }: { params: { id: string } }) {
+export default async function KegiatanDetailPage({ params }: { params: Promise<{ id: string }> }) {
   await requireUser();
-  const { id } = params;
-  let activityId: BigInt;
+  const { id } = await params;
+  let activityId: bigint;
   try { activityId = BigInt(id); } catch { return notFound(); }
 
   const activity = await getActivityById(activityId);
@@ -32,7 +33,9 @@ export default async function KegiatanDetailPage({ params }: { params: { id: str
     <div className="grid gap-6">
       <div className="flex flex-col gap-2">
         <h1 className="text-2xl font-bold tracking-tight text-slate-950">{activity.title}</h1>
-        <p className="text-sm text-muted-foreground">{activity.ukm?.name ?? '-'} • {formatDate(activity.startsAt, true)}</p>
+        <p className="text-sm text-muted-foreground">
+  {formatDate(activity.startsAt, true)}
+</p>
       </div>
 
       <GlassCard>

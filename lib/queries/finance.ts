@@ -85,6 +85,6 @@ export async function getFinanceSummary({ ukmId, from, to } : any = {}) {
   return {
     totalIncome: Number(income._sum.amount ?? 0),
     totalExpense: Number(expense._sum.amount ?? 0),
-    balance: Number((income._sum.amount ?? 0) - (expense._sum.amount ?? 0)),
+    balance: Number(income._sum.amount ?? 0) - Number(expense._sum.amount ?? 0),
   };
 }

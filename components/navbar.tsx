@@ -4,7 +4,7 @@ import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { signOut } from "next-auth/react";
 
-type UserLike = { name?: string; email?: string; role?: string } | undefined;
+type UserLike = { name?: string | null; email?: string | null; role?: string } | undefined;
 
 export default function Navbar({ user: propUser }: { user?: UserLike } ) {
   const pathname = usePathname();

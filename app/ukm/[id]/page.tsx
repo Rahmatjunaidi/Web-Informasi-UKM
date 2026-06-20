@@ -27,8 +27,8 @@ export default async function UkmDetailPage({ params }: Props) {
 
   const ukm = {
     ...base,
-    members: membersRes?.memberships ?? [],
-    activities: activitiesRes?.activities ?? [],
+    members: (membersRes as any)?.memberships ?? [],
+    activities: (activitiesRes as any)?.activities ?? [],
   };
 
   return (

@@ -6,20 +6,40 @@ import { AnggotaFormModal } from "@/components/anggota/anggota-form-modal";
 
 export const dynamic = "force-dynamic";
 
-export async function generateMetadata({ params }: { params: { id: string } }): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}): Promise<Metadata> {
   try {
-    const s = await getStudentById(BigInt(params.id));
-    if (!s) return { title: "Anggota tidak ditemukan" };
-    return { title: `Edit ${s.name}` };
+    const { id } = await params;
+    const s = await getStudentById(BigInt(id));
+
+    if (!s) {
+      return { title: "Anggota tidak ditemukan" };
+    }
+
+    return {
+      title: `Edit ${s.name}`,
+    };
   } catch {
-    return { title: "Edit Anggota" };
+    return {
+      title: "Edit Anggota",
+    };
   }
 }
 
-export default async function AnggotaEditPage({ params }: { params: { id: string } }) {
+export default async function AnggotaEditPage({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}) {
   await requireUser();
-  const { id } = params;
-  let studentId: BigInt;
+
+  const { id } = await params;
+
+  let studentId: bigint;
+
   try {
     studentId = BigInt(id);
   } catch {
@@ -27,19 +47,38 @@ export default async function AnggotaEditPage({ params }: { params: { id: string
   }
 
   const s = await getStudentById(studentId);
-  if (!s) return notFound();
 
-  const formValue = { id: s.id.toString(), nim: s.nim, name: s.name, studyProgram: s.studyProgram ?? "", faculty: s.faculty ?? "", phone: s.phone ?? "", address: s.address ?? "" };
+  if (!s) {
+    return notFound();
+  }
+
+  const formValue = {
+    id: s.id.toString(),
+    nim: s.nim,
+    name: s.name,
+    studyProgram: s.studyProgram ?? "",
+    faculty: s.faculty ?? "",
+    phone: s.phone ?? "",
+    address: s.address ?? "",
+  };
 
   return (
     <div className="grid gap-6">
       <div className="flex flex-col gap-2">
-        <h1 className="text-2xl font-bold tracking-tight text-slate-950">Edit Anggota</h1>
-        <p className="text-sm text-muted-foreground">Ubah data anggota.</p>
+        <h1 className="text-2xl font-bold tracking-tight text-slate-950">
+          Edit Anggota
+        </h1>
+        <p className="text-sm text-muted-foreground">
+          Ubah data anggota.
+        </p>
       </div>
 
       <div>
-        <AnggotaFormModal mode="edit" student={formValue} trigger={null} />
+        <AnggotaFormModal
+          mode="edit"
+          student={formValue}
+          trigger={null}
+        />
       </div>
     </div>
   );

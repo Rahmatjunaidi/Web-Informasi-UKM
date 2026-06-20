@@ -8,14 +8,14 @@ import { updateFinanceAction } from "../../actions";
 export const metadata: Metadata = { title: "Edit Transaksi - Keuangan" };
 export const dynamic = "force-dynamic";
 
-type Props = { params: { id: string } };
+type Props = { params: Promise<{ id: string }> };
 
 export default async function EditPage({ params }: Props) {
   await requireUser();
-  const id = Number(params.id);
-  const [tx, categories, ukms] = await Promise.all([getFinanceById(id), getFinanceCategories(), getUkmsForFilter()]);
+  const { id } = await params;
+  const financeId = Number(id);
+  const [tx, categories, ukms] = await Promise.all([getFinanceById(financeId), getFinanceCategories(), getUkmsForFilter()]);
   if (!tx) return <div>Transaksi tidak ditemukan</div>;
-
   return (
     <div className="grid gap-6">
       <div className="flex items-center justify-between">

@@ -81,11 +81,10 @@ export default async function WebsiteAdminPage() {
 }
 
 // server action
-async function saveWebsite(formData: FormData) {
+async function saveWebsite(formData: FormData): Promise<void> {
   'use server';
   const entries = Object.fromEntries(formData.entries());
   for (const [k, v] of Object.entries(entries)) {
     await upsertSetting(k, String(v));
   }
-  return { ok: true };
 }

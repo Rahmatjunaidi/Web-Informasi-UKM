@@ -8,7 +8,7 @@ import { deleteAnnouncementAction } from "../actions";
 export const metadata: Metadata = { title: "Detail Pengumuman - Dashboard" };
 export const dynamic = "force-dynamic";
 
-type Props = { params: { id: string } };
+type Props = { params: Promise<{ id: string }> };
 
 export default async function DetailPage({ params }: Props) {
   await requireUser();
@@ -21,7 +21,7 @@ export default async function DetailPage({ params }: Props) {
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-2xl font-bold">{a.title}</h1>
-          <p className="text-sm text-muted-foreground">{new Date(a.createdAt).toLocaleDateString("id-ID", { day: "2-digit", month: "long", year: "numeric" })}</p>
+          <p className="text-sm text-muted-foreground">{new Date(a.createdAt ?? "").toLocaleDateString("id-ID", { day: "2-digit", month: "long", year: "numeric" })}</p>
         </div>
         <div className="flex gap-2">
           <Link href={`/dashboard/pengumuman/${a.id}/edit`} className="btn">Edit</Link>
