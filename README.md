@@ -86,9 +86,28 @@ CREATE DATABASE ukm_management;
 Kemudian sesuaikan isi file `.env`:
 
 ```env
+<<<<<<< HEAD
 DATABASE_URL=""
 AUTH_SECRET=""
 AUTH_URL="http://localhost:3000"
+=======
+DATABASE_URL="mysql://root:password@localhost:3306/ukm_management"
+```
+
+Format:
+
+```txt
+mysql://USER:PASSWORD@HOST:PORT/DATABASE
+```
+
+### 4. Konfigurasi Auth.js
+
+Isi `AUTH_SECRET` dengan string acak minimal 32 karakter.
+
+```env
+AUTH_SECRET="replace-with-a-long-random-secret"
+AUTH_URL="https://portal-ukm-upj.vercel.app"
+>>>>>>> 7d254c3 (fix: production url)
 ```
 
 ### 5. Generate Prisma Client
@@ -118,7 +137,7 @@ npm run dev
 Akses aplikasi melalui:
 
 ```txt
-http://localhost:3000
+https://portal-ukm-upj.vercel.app
 ```
 
 ## Build Production
