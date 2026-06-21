@@ -95,7 +95,13 @@ export default async function HomePage() {
 
           <div>
             <div className="glass p-6 rounded-3xl">
-              <h3 className="text-lg font-semibold">UKM Unggulan</h3>
+              <div className="mb-6">
+                <h3 className="text-lg font-semibold">UKM Unggulan</h3>
+                <div className="mt-3 flex items-center gap-2">
+                  <div className="h-1 w-16 rounded-full bg-cyan-400"></div>
+                  <div className="h-1 w-8 rounded-full bg-blue-500"></div>
+                </div>
+              </div>
               <div className="mt-4 grid gap-3">
                 {featured.map((u) => (
                   <Link key={u.id.toString()} href={`/ukm/${u.id}`} className="block p-3 rounded-md glass-hover">
@@ -110,6 +116,10 @@ export default async function HomePage() {
               <GlassCard>
                 <CardHeader>
                   <CardTitle>Kegiatan Terbaru</CardTitle>
+                  <div className="flex items-center gap-2">
+                    <div className="h-1 w-16 rounded-full bg-cyan-400"></div>
+                    <div className="h-1 w-8 rounded-full bg-blue-500"></div>
+                  </div>
                 </CardHeader>
                 <CardContent>
                   <ul className="space-y-3">
@@ -129,6 +139,10 @@ export default async function HomePage() {
               <GlassCard className="mt-4">
                 <CardHeader>
                   <CardTitle>Pengumuman Terbaru</CardTitle>
+                  <div className="flex items-center gap-2">
+                    <div className="h-1 w-16 rounded-full bg-cyan-400"></div>
+                    <div className="h-1 w-8 rounded-full bg-blue-500"></div>
+                  </div>
                 </CardHeader>
                 <CardContent>
                   <ul className="space-y-3">

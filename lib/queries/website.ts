@@ -1,51 +1,57 @@
 import { prisma } from "@/lib/prisma";
 
-const client: any = prisma as any;
+let _tableChecked = false;
+let _tableExists = false;
+
+async function websiteTableExists(): Promise<boolean> {
+  if (_tableChecked) return _tableExists;
+  _tableChecked = true;
+  // Query information_schema to check if the table exists.
+  // This never throws (it's a system view) and avoids Prisma logging
+  // "table does not exist" errors when we use the model methods.
+  try {
+    const result: Array<{ cnt: bigint }> = await prisma.$queryRaw`
+      SELECT COUNT(*) as cnt FROM information_schema.tables
+      WHERE table_schema = DATABASE() AND table_name = 'website_settings'
+    `;
+    _tableExists = Number(result[0]?.cnt ?? BigInt(0)) > 0;
+  } catch {
+    _tableExists = false;
+  }
+  return _tableExists;
+}
 
 export async function getWebsiteSettings() {
-  // defensive: if Prisma client was not generated after adding WebsiteSetting model,
-  // prisma.websiteSetting may be undefined. Return empty map instead of crashing.
+  if (!(await websiteTableExists())) return {};
   try {
-    if (!client || !client.websiteSetting || typeof client.websiteSetting.findMany !== "function") {
-      return {};
-    }
-
-    const rows = await client.websiteSetting.findMany();
+    const rows = await prisma.websiteSetting.findMany();
     const map: Record<string, string> = {};
     for (const r of rows) map[r.key] = r.value;
     return map;
-  } catch (e) {
-    // On any error (missing table, db not migrated), return empty settings map
+  } catch {
     return {};
   }
 }
 
 export async function getSetting(key: string) {
+  if (!(await websiteTableExists())) return null;
   try {
-    if (!client || !client.websiteSetting || typeof client.websiteSetting.findUnique !== "function") {
-      return null;
-    }
-    const r = await client.websiteSetting.findUnique({ where: { key } });
+    const r = await prisma.websiteSetting.findUnique({ where: { key } });
     return r?.value ?? null;
-  } catch (e) {
+  } catch {
     return null;
   }
 }
 
 export async function upsertSetting(key: string, value: string) {
+  if (!(await websiteTableExists())) return null;
   try {
-    if (!client || !client.websiteSetting) {
-      // Prisma client is missing the WebsiteSetting model (likely prisma generate not run).
-      // Return null so caller can handle or log the issue. Do not crash.
-      return null;
-    }
-
-    const exists = await client.websiteSetting.findUnique({ where: { key } });
+    const exists = await prisma.websiteSetting.findUnique({ where: { key } });
     if (exists) {
-      return client.websiteSetting.update({ where: { key }, data: { value } });
+      return prisma.websiteSetting.update({ where: { key }, data: { value } });
     }
-    return client.websiteSetting.create({ data: { key, value } });
-  } catch (e) {
+    return prisma.websiteSetting.create({ data: { key, value } });
+  } catch {
     return null;
   }
 }

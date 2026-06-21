@@ -1,5 +1,6 @@
 "use client"
 import { useState } from "react";
+import Image from "next/image";
 import { useSearchParams } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { loginAction } from "./actions";
@@ -17,9 +18,13 @@ export default function LoginPage() {
             <div className="glass-panel p-6 rounded-3xl max-w-sm">
               <h2 className="text-2xl font-bold">Selamat Datang</h2>
               <p className="mt-2 text-sm text-slate-200/80">Masuk untuk mengelola keanggotaan dan aktivitas UKM.</p>
-              <div className="mt-6">
-                {/* Illustration placeholder */}
-                <div className="w-full h-48 bg-gradient-to-br from-indigo-600 to-cyan-400 rounded-lg" />
+              <div className="mt-6 relative w-full h-48">
+                <Image
+                  src="/images/login-banner.png"
+                  alt="Login banner"
+                  fill
+                  className="object-cover rounded-lg"
+                />
               </div>
             </div>
           </div>

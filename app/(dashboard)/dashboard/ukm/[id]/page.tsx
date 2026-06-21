@@ -261,6 +261,10 @@ export default async function UkmDetailPage({ params }: UkmDetailPageProps) {
               Kegiatan Terbaru
             </CardTitle>
             <CardDescription>{activities.length} kegiatan</CardDescription>
+            <div className="flex items-center gap-2">
+              <div className="h-1 w-16 rounded-full bg-cyan-400"></div>
+              <div className="h-1 w-8 rounded-full bg-blue-500"></div>
+            </div>
           </CardHeader>
           {activities.length > 0 ? (
             <div className="space-y-3 p-6">

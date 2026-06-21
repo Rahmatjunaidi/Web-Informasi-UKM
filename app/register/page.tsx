@@ -1,5 +1,6 @@
 "use client"
 import { useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 
@@ -16,11 +17,13 @@ export default function RegisterPage() {
               <h2 className="text-2xl font-bold">Bergabung dengan Komunitas</h2>
               <p className="mt-2 text-sm text-slate-200/80">Daftar untuk bergabung sebagai anggota UKM dan mulai berkontribusi pada kegiatan.</p>
 
-              <div className="mt-6 relative">
-                <div className="w-full h-48 rounded-lg bg-gradient-to-br from-indigo-600 to-cyan-400" />
-                {/* floating glow orb */}
-                <div className="floating-orb bg-primary-400/60 left-[-20px] top-[-40px] w-40 h-40" />
-                <div className="floating-orb bg-amber-400/50 right-[-30px] bottom-[-30px] w-56 h-56" />
+              <div className="mt-6 relative w-full h-48">
+                <Image
+                  src="/images/login-banner.png"
+                  alt="Register banner"
+                  fill
+                  className="object-cover rounded-lg"
+                />
               </div>
             </div>
           </div>
