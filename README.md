@@ -1,102 +1,95 @@
-<<<<<<< HEAD
-# Sistem Informasi Pengelolaan UKM
+# Sistem Informasi Pengelolaan UKM UPJ
 
-Fondasi project web untuk Sistem Informasi Pengelolaan Unit Kegiatan Mahasiswa berbasis Next.js 15, TypeScript, Prisma ORM, MySQL, Tailwind CSS, Shadcn UI, dan Auth.js.
+Sistem Informasi Pengelolaan Unit Kegiatan Mahasiswa (UKM) Universitas Pembangunan Jaya berbasis Next.js 15, TypeScript, Prisma ORM, MySQL, Tailwind CSS, Shadcn UI, dan Auth.js.
 
-Dokumen desain sistem ada di `docs/system-design.md`.
+Dokumen desain sistem tersedia pada folder `docs/`.
 
-## Stack
+## Teknologi yang Digunakan
 
-- Next.js 15 App Router
-- TypeScript
-- Prisma ORM
-- MySQL
-- Tailwind CSS
-- Shadcn UI
-- Auth.js credentials authentication
-- JWT session
-- Role Based Access Control
+* Next.js 15 (App Router)
+* TypeScript
+* Prisma ORM
+* MySQL
+* Tailwind CSS
+* Shadcn UI
+* Auth.js
+* JWT Session
+* Role Based Access Control (RBAC)
 
-## Role
+## Role Pengguna
 
-- `SUPER_ADMIN`
-- `MEMBER`
+### SUPER_ADMIN
 
-## Struktur Utama
+Memiliki akses penuh terhadap seluruh fitur sistem:
+
+* Manajemen UKM
+* Manajemen Anggota
+* Manajemen Kegiatan
+* Manajemen Keuangan
+* Manajemen Pengumuman
+* Manajemen Website
+
+### MEMBER
+
+Memiliki akses sesuai hak yang diberikan oleh sistem.
+
+## Struktur Project
 
 ```txt
-app/                  Next.js App Router
-app/api/auth/         Auth.js route handler
-components/ui/        Komponen Shadcn UI
-config/               Konfigurasi app, role, dan navigasi
-lib/auth/             Permission, session helper, dan RBAC
-lib/db/               Prisma Client singleton
-lib/validators/       Schema validasi input
-prisma/               Prisma schema, migrations, dan seed
-types/                Type aplikasi dan module augmentation
-docs/                 Dokumentasi desain sistem
+app/
+components/
+config/
+lib/
+prisma/
+public/
+types/
+docs/
 ```
 
-## Setup Lokal
+## Instalasi
 
-### 1. Install dependency
+### 1. Clone Repository
+
+```bash
+git clone https://github.com/Rahmatjunaidi/Web-Informasi-UKM.git
+cd Web-Informasi-UKM
+```
+
+### 2. Install Dependency
 
 ```bash
 npm install
 ```
 
-### 2. Buat file environment
+### 3. Buat File Environment
 
-Salin `.env.example` menjadi `.env`.
+Salin file `.env.example` menjadi `.env`
 
 ```bash
 cp .env.example .env
 ```
 
-Untuk Windows PowerShell:
+Windows PowerShell:
 
 ```powershell
 Copy-Item .env.example .env
 ```
 
-### 3. Konfigurasi database MySQL
+### 4. Konfigurasi Database
 
 Buat database MySQL:
 
 ```sql
-CREATE DATABASE ukm_management
-  CHARACTER SET utf8mb4
-  COLLATE utf8mb4_unicode_ci;
+CREATE DATABASE ukm_management;
 ```
 
-Sesuaikan `DATABASE_URL` di `.env`.
+Kemudian sesuaikan isi file `.env`:
 
 ```env
-DATABASE_URL="mysql://root:password@localhost:3306/ukm_management"
-```
-
-Format:
-
-```txt
-mysql://USER:PASSWORD@HOST:PORT/DATABASE
-```
-
-### 4. Konfigurasi Auth.js
-
-Isi `AUTH_SECRET` dengan string acak minimal 32 karakter.
-
-```env
-AUTH_SECRET="replace-with-a-long-random-secret"
+DATABASE_URL=""
+AUTH_SECRET=""
 AUTH_URL="http://localhost:3000"
 ```
-
-Secret dapat dibuat dengan:
-
-```bash
-openssl rand -base64 32
-```
-
-Jika OpenSSL tidak tersedia, gunakan generator secret yang aman.
 
 ### 5. Generate Prisma Client
 
@@ -104,121 +97,122 @@ Jika OpenSSL tidak tersedia, gunakan generator secret yang aman.
 npm run prisma:generate
 ```
 
-### 6. Jalankan migration
+### 6. Jalankan Migration
 
 ```bash
-npm run prisma:migrate -- --name init
+npm run prisma:migrate
 ```
 
-### 7. Seed data awal
+### 7. Jalankan Seeder
 
 ```bash
 npm run db:seed
 ```
 
-Seed membuat role dasar dan akun super admin:
-
-```txt
-Email: admin@ukm.local
-Password: password
-```
-
-Ganti password setelah login pertama pada implementasi fitur user management.
-
-### 8. Jalankan development server
+### 8. Jalankan Development Server
 
 ```bash
 npm run dev
 ```
 
-Buka:
+Akses aplikasi melalui:
 
 ```txt
 http://localhost:3000
 ```
 
+## Build Production
+
+```bash
+npm run build
+npm start
+```
+
 ## Script
 
-| Script | Fungsi |
-| --- | --- |
-| `npm run dev` | Menjalankan Next.js development server. |
-| `npm run build` | Build production. |
-| `npm run start` | Menjalankan build production. |
-| `npm run lint` | Menjalankan ESLint. |
-| `npm run typecheck` | Mengecek TypeScript tanpa emit. |
-| `npm run prisma:generate` | Generate Prisma Client. |
-| `npm run prisma:migrate` | Membuat dan menjalankan Prisma migration. |
-| `npm run prisma:studio` | Membuka Prisma Studio. |
-| `npm run db:seed` | Menjalankan seed database. |
+| Script                  | Keterangan                     |
+| ----------------------- | ------------------------------ |
+| npm run dev             | Menjalankan development server |
+| npm run build           | Build production               |
+| npm run start           | Menjalankan production server  |
+| npm run lint            | Menjalankan ESLint             |
+| npm run prisma:generate | Generate Prisma Client         |
+| npm run prisma:migrate  | Menjalankan migration database |
+| npm run prisma:studio   | Membuka Prisma Studio          |
+| npm run db:seed         | Menjalankan seeder database    |
+
+## Modul Sistem
+
+### Dashboard
+
+Menampilkan ringkasan data sistem.
+
+### UKM
+
+* Tambah UKM
+* Edit UKM
+* Hapus UKM
+* Detail UKM
+
+### Anggota
+
+* Tambah Anggota
+* Edit Anggota
+* Hapus Anggota
+* Detail Anggota
+
+### Kegiatan
+
+* Tambah Kegiatan
+* Edit Kegiatan
+* Hapus Kegiatan
+* Detail Kegiatan
+
+### Keuangan
+
+* Pemasukan
+* Pengeluaran
+* Kategori Keuangan
+* Persetujuan Transaksi
+
+### Pengumuman
+
+* Tambah Pengumuman
+* Edit Pengumuman
+* Hapus Pengumuman
+
+### Website
+
+* Pengaturan Website
+* Informasi UKM
+* Landing Page
 
 ## Authentication
 
-Authentication menggunakan Auth.js dengan credentials provider.
+Authentication menggunakan Auth.js dengan Credentials Provider.
 
-File penting:
+Fitur:
 
-- `auth.ts`: konfigurasi provider credentials dan validasi password.
-- `auth.config.ts`: konfigurasi session dan callback JWT.
-- `app/api/auth/[...nextauth]/route.ts`: route handler Auth.js.
-- `lib/validators/auth.ts`: validasi input login.
+* Login
+* Register
+* Session Management
+* JWT Authentication
+* Role Based Access Control
 
-Session memakai strategy `jwt`. Token menyimpan:
+## Catatan
 
-- `id`
-- `role`
-- `status`
+* File `.env` tidak boleh diunggah ke GitHub.
+* Gunakan `.env.example` sebagai contoh konfigurasi.
+* Pastikan database telah dibuat sebelum menjalankan migration.
+* Untuk deployment production gunakan secret yang kuat dan aman.
 
-User hanya dapat login jika `status = ACTIVE`.
+## Developer
 
-## Role Based Access Control
+Universitas Pembangunan Jaya
+Program Studi Informatika
+Software Engineering Project
 
-RBAC dikonfigurasi di:
+Developed by:
 
-- `lib/auth/permissions.ts`
-- `middleware.ts`
-- `lib/auth/session.ts`
-
-Middleware menangani:
-
-- redirect user belum login ke `/login`
-- redirect user yang sudah login dari `/login` ke `/dashboard`
-- validasi role berdasarkan prefix route
-
-Server helper:
-
-```ts
-import { requireRole, requireUser } from "@/lib/auth/session";
-
-const user = await requireUser();
-await requireRole(["SUPER_ADMIN"]);
-```
-
-## Prisma
-
-Schema database ada di `prisma/schema.prisma` dan mengikuti ERD pada `docs/system-design.md`.
-
-Model utama:
-
-- `Role`
-- `User`
-- `Student`
-- `Advisor`
-- `Ukm`
-- `UkmMembership`
-- `Activity`
-- `ActivityParticipant`
-- `ActivityApproval`
-- `FinanceCategory`
-- `FinanceTransaction`
-- `FinanceApproval`
-- `Announcement`
-
-## Catatan Pengembangan Lanjutan
-
-- Halaman fitur UKM, anggota, kegiatan, keuangan, dan pengumuman belum dibuat.
-- Folder modul sudah disiapkan agar implementasi fitur bisa ditambahkan bertahap.
-- Untuk production, ganti password seed dan gunakan secret environment yang kuat.
-- Untuk upload file bukti transaksi atau logo UKM, gunakan object storage daripada `public/uploads`.
-=======
-# Web-Informasi-UKM
->>>>>>> c658a6b9f659eb8a720df3e240951db3b91c679a
+* Rahmat Junaidi Nasution
+* Nadia
